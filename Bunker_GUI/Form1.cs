@@ -14,6 +14,7 @@ namespace Bunker_GUI
     {
         private int padx = 30;
         private int pady = 25;
+        private int phase = 1;
         private int currentBand = 1;
         private int currentChannel = 1;
         private double[] plotFrequencies = generateKeyFrequencies();
@@ -35,6 +36,7 @@ namespace Bunker_GUI
             new double[12],
             new double[12]
         };
+        private double[] volValues = new double[3];
         private double[] centralFreq = new double[]
         {
             19.7,20.1,20.5,20.9,21.3,21.7,22.1,22.5,23.0,23.4,23.9,24.3,24.8,25.3,25.8,26.3,26.8,27.3,27.8,28.4,28.9,29.5,30.1,30.7,31.3,
@@ -65,6 +67,7 @@ namespace Bunker_GUI
             76.00,81.00,85.00,91.00,96.00,102.00,108.00,114.00,121.00,128.00
         };
         private double[] centralGain = generateCentralGain();
+        private double[] centralVol = generateCentralVol();
 
         public Form1()
         {
@@ -98,10 +101,7 @@ namespace Bunker_GUI
                 freqValues[i][9] = 3920.0;
                 freqValues[i][10] = 6990.0;
                 freqValues[i][11] = 12500.0;
-            }
-
-            for (int i = 0; i < 3; i++)
-            {
+                volValues[i] = 0.00;
                 for (int j = 0; j < 12; j++)
                 {
                     qValues[i][j] = 4.00;
@@ -109,7 +109,7 @@ namespace Bunker_GUI
                 }
             }
         }
-        
+
         private void initializeWidgets()
         {
             //CARTESIAN CHART
@@ -186,6 +186,44 @@ namespace Bunker_GUI
                 label25.BackColor = System.Drawing.Color.Transparent;
                 label26.Text = "0.00";
                 label26.BackColor = System.Drawing.Color.Transparent;
+                label27.Text = "Delay";
+                label27.Font = new Font("Microsoft Sans Serif", 8, FontStyle.Bold);
+                label27.BackColor = System.Drawing.Color.Transparent;
+                label28.Text = "VPL SET";
+                label28.Font = new Font("Microsoft Sans Serif", 8, FontStyle.Bold);
+                label28.BackColor = System.Drawing.Color.Transparent;
+                label29.Text = "+15";
+                label29.BackColor = System.Drawing.Color.Transparent;
+                label30.Text = "+10";
+                label30.BackColor = System.Drawing.Color.Transparent;
+                label31.Text = "0";
+                label31.BackColor = System.Drawing.Color.Transparent;
+                label32.Text = "-10";
+                label32.BackColor = System.Drawing.Color.Transparent;
+                label33.Text = "-20";
+                label33.BackColor = System.Drawing.Color.Transparent;
+                label34.Text = "-30";
+                label34.BackColor = System.Drawing.Color.Transparent;
+                label35.Text = "-40";
+                label35.BackColor = System.Drawing.Color.Transparent;
+                label36.Text = "High Pass";
+                label36.Font = new Font("Microsoft Sans Serif", 8, FontStyle.Bold);
+                label36.BackColor = System.Drawing.Color.Transparent;
+                label37.Text = "Low Pass";
+                label37.Font = new Font("Microsoft Sans Serif", 8, FontStyle.Bold);
+                label37.BackColor = System.Drawing.Color.Transparent;
+                label38.Text = "Type";
+                label38.BackColor = System.Drawing.Color.Transparent;
+                label39.Text = "Freq (Hz)";
+                label39.BackColor = System.Drawing.Color.Transparent;
+                label40.Text = "Q Value";
+                label40.BackColor = System.Drawing.Color.Transparent;
+                label41.Text = "Type";
+                label41.BackColor = System.Drawing.Color.Transparent;
+                label42.Text = "Freq (Hz)";
+                label42.BackColor = System.Drawing.Color.Transparent;
+                label43.Text = "Q Value";
+                label43.BackColor = System.Drawing.Color.Transparent;
             }
             //GROUPBOX
             {
@@ -233,214 +271,227 @@ namespace Bunker_GUI
             {
                 //FREQ TEXTBOX
                 textBox1.AcceptsReturn = false;
-                textBox1.Font = new Font("Microsoft Sans Serif", 11, FontStyle.Regular);
+                textBox1.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
                 textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
                 textBox1.Text = freqValues[0][0].ToString();
                 textBox2.AcceptsReturn = false;
-                textBox2.Font = new Font("Microsoft Sans Serif", 11, FontStyle.Regular);
+                textBox2.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
                 textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
                 textBox2.Text = freqValues[0][1].ToString();
                 textBox3.AcceptsReturn = false;
-                textBox3.Font = new Font("Microsoft Sans Serif", 11, FontStyle.Regular);
+                textBox3.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
                 textBox3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
                 textBox3.Text = freqValues[0][2].ToString();
                 textBox4.AcceptsReturn = false;
-                textBox4.Font = new Font("Microsoft Sans Serif", 11, FontStyle.Regular);
+                textBox4.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
                 textBox4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
                 textBox4.Text = freqValues[0][3].ToString();
                 textBox5.AcceptsReturn = false;
-                textBox5.Font = new Font("Microsoft Sans Serif", 11, FontStyle.Regular);
+                textBox5.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
                 textBox5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
                 textBox5.Text = freqValues[0][4].ToString();
                 textBox6.AcceptsReturn = false;
-                textBox6.Font = new Font("Microsoft Sans Serif", 11, FontStyle.Regular);
+                textBox6.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
                 textBox6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
                 textBox6.Text = freqValues[0][5].ToString();
                 textBox7.AcceptsReturn = false;
-                textBox7.Font = new Font("Microsoft Sans Serif", 11, FontStyle.Regular);
+                textBox7.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
                 textBox7.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
                 textBox7.Text = freqValues[0][6].ToString();
                 textBox8.AcceptsReturn = false;
-                textBox8.Font = new Font("Microsoft Sans Serif", 11, FontStyle.Regular);
+                textBox8.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
                 textBox8.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
                 textBox8.Text = freqValues[0][7].ToString();
                 textBox9.AcceptsReturn = false;
-                textBox9.Font = new Font("Microsoft Sans Serif", 11, FontStyle.Regular);
+                textBox9.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
                 textBox9.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
                 textBox9.Text = freqValues[0][8].ToString();
                 textBox10.AcceptsReturn = false;
-                textBox10.Font = new Font("Microsoft Sans Serif", 11, FontStyle.Regular);
+                textBox10.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
                 textBox10.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
                 textBox10.Text = freqValues[0][9].ToString();
                 textBox11.AcceptsReturn = false;
-                textBox11.Font = new Font("Microsoft Sans Serif", 11, FontStyle.Regular);
+                textBox11.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
                 textBox11.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
                 textBox11.Text = freqValues[0][10].ToString();
                 textBox12.AcceptsReturn = false;
-                textBox12.Font = new Font("Microsoft Sans Serif", 11, FontStyle.Regular);
+                textBox12.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
                 textBox12.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
                 textBox12.Text = freqValues[0][11].ToString();
                 //Q VALUE TEXTBOX
                 textBox13.AcceptsReturn = false;
-                textBox13.Font = new Font("Microsoft Sans Serif", 11, FontStyle.Regular);
+                textBox13.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
                 textBox13.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
                 textBox13.Text = qValues[0][0].ToString();
                 textBox14.AcceptsReturn = false;
-                textBox14.Font = new Font("Microsoft Sans Serif", 11, FontStyle.Regular);
+                textBox14.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
                 textBox14.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
                 textBox14.Text = qValues[0][1].ToString();
                 textBox15.AcceptsReturn = false;
-                textBox15.Font = new Font("Microsoft Sans Serif", 11, FontStyle.Regular);
+                textBox15.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
                 textBox15.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
                 textBox15.Text = qValues[0][2].ToString();
                 textBox16.AcceptsReturn = false;
-                textBox16.Font = new Font("Microsoft Sans Serif", 11, FontStyle.Regular);
+                textBox16.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
                 textBox16.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
                 textBox16.Text = qValues[0][3].ToString();
                 textBox17.AcceptsReturn = false;
-                textBox17.Font = new Font("Microsoft Sans Serif", 11, FontStyle.Regular);
+                textBox17.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
                 textBox17.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
                 textBox17.Text = qValues[0][4].ToString();
                 textBox18.AcceptsReturn = false;
-                textBox18.Font = new Font("Microsoft Sans Serif", 11, FontStyle.Regular);
+                textBox18.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
                 textBox18.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
                 textBox18.Text = qValues[0][5].ToString();
                 textBox19.AcceptsReturn = false;
-                textBox19.Font = new Font("Microsoft Sans Serif", 11, FontStyle.Regular);
+                textBox19.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
                 textBox19.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
                 textBox19.Text = qValues[0][6].ToString();
                 textBox20.AcceptsReturn = false;
-                textBox20.Font = new Font("Microsoft Sans Serif", 11, FontStyle.Regular);
+                textBox20.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
                 textBox20.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
                 textBox20.Text = qValues[0][7].ToString();
                 textBox21.AcceptsReturn = false;
-                textBox21.Font = new Font("Microsoft Sans Serif", 11, FontStyle.Regular);
+                textBox21.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
                 textBox21.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
                 textBox21.Text = qValues[0][8].ToString();
                 textBox22.AcceptsReturn = false;
-                textBox22.Font = new Font("Microsoft Sans Serif", 11, FontStyle.Regular);
+                textBox22.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
                 textBox22.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
                 textBox22.Text = qValues[0][9].ToString();
                 textBox23.AcceptsReturn = false;
-                textBox23.Font = new Font("Microsoft Sans Serif", 11, FontStyle.Regular);
+                textBox23.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
                 textBox23.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
                 textBox23.Text = qValues[0][10].ToString();
                 textBox24.AcceptsReturn = false;
-                textBox24.Font = new Font("Microsoft Sans Serif", 11, FontStyle.Regular);
+                textBox24.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
                 textBox24.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
                 textBox24.Text = qValues[0][11].ToString();
                 //GAIN TEXTBOX
                 textBox25.AcceptsReturn = false;
-                textBox25.Font = new Font("Microsoft Sans Serif", 11, FontStyle.Regular);
+                textBox25.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
                 textBox25.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
                 textBox25.Text = gainValues[0][0].ToString();
                 textBox26.AcceptsReturn = false;
-                textBox26.Font = new Font("Microsoft Sans Serif", 11, FontStyle.Regular);
+                textBox26.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
                 textBox26.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
                 textBox26.Text = gainValues[0][1].ToString();
                 textBox27.AcceptsReturn = false;
-                textBox27.Font = new Font("Microsoft Sans Serif", 11, FontStyle.Regular);
+                textBox27.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
                 textBox27.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
                 textBox27.Text = gainValues[0][2].ToString();
                 textBox28.AcceptsReturn = false;
-                textBox28.Font = new Font("Microsoft Sans Serif", 11, FontStyle.Regular);
+                textBox28.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
                 textBox28.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
                 textBox28.Text = gainValues[0][3].ToString();
                 textBox29.AcceptsReturn = false;
-                textBox29.Font = new Font("Microsoft Sans Serif", 11, FontStyle.Regular);
+                textBox29.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
                 textBox29.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
                 textBox29.Text = gainValues[0][4].ToString();
                 textBox30.AcceptsReturn = false;
-                textBox30.Font = new Font("Microsoft Sans Serif", 11, FontStyle.Regular);
+                textBox30.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
                 textBox30.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
                 textBox30.Text = gainValues[0][5].ToString();
                 textBox31.AcceptsReturn = false;
-                textBox31.Font = new Font("Microsoft Sans Serif", 11, FontStyle.Regular);
+                textBox31.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
                 textBox31.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
                 textBox31.Text = gainValues[0][6].ToString();
                 textBox32.AcceptsReturn = false;
-                textBox32.Font = new Font("Microsoft Sans Serif", 11, FontStyle.Regular);
+                textBox32.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
                 textBox32.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
                 textBox32.Text = gainValues[0][7].ToString();
                 textBox33.AcceptsReturn = false;
-                textBox33.Font = new Font("Microsoft Sans Serif", 11, FontStyle.Regular);
+                textBox33.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
                 textBox33.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
                 textBox33.Text = gainValues[0][8].ToString();
                 textBox34.AcceptsReturn = false;
-                textBox34.Font = new Font("Microsoft Sans Serif", 11, FontStyle.Regular);
+                textBox34.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
                 textBox34.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
                 textBox34.Text = gainValues[0][9].ToString();
                 textBox35.AcceptsReturn = false;
-                textBox35.Font = new Font("Microsoft Sans Serif", 11, FontStyle.Regular);
+                textBox35.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
                 textBox35.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
                 textBox35.Text = gainValues[0][10].ToString();
                 textBox36.AcceptsReturn = false;
-                textBox36.Font = new Font("Microsoft Sans Serif", 11, FontStyle.Regular);
+                textBox36.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
                 textBox36.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
                 textBox36.Text = gainValues[0][11].ToString();
+                //OTHER
+                textBox37.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
+                textBox37.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+                textBox37.Text = "CH " + currentChannel.ToString();
+                textBox37.BackColor = System.Drawing.Color.FromArgb(55,55,55);
+                textBox37.ForeColor = System.Drawing.Color.White;
+                textBox37.Enabled = false;
+                textBox38.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
+                textBox38.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+                textBox38.Text = "Mute";
+                textBox39.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
+                textBox39.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+                textBox39.Text = "Ejemplo";
+                textBox41.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
+                textBox41.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+                textBox41.Text = "0.1";
+                textBox41.Enabled = false;
+                textBox43.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
+                textBox43.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+                textBox43.Text = "0.1";
+                textBox43.Enabled = false;
             }
             //COMBOBOX
             {
                 comboBox1.Items.AddRange(new object[] { "Parametric", "Low Shelf", "High Shelf" });
-                comboBox1.Width = 100;
                 comboBox1.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
                 comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
                 comboBox1.Text = comboBox1.Items[0].ToString();
                 comboBox2.Items.AddRange(new object[] { "Parametric", "Low Shelf", "High Shelf" });
-                comboBox2.Width = 100;
                 comboBox2.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
                 comboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
                 comboBox2.Text = comboBox2.Items[0].ToString();
                 comboBox3.Items.AddRange(new object[] { "Parametric", "Low Shelf", "High Shelf" });
-                comboBox3.Width = 100;
                 comboBox3.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
                 comboBox3.DropDownStyle = ComboBoxStyle.DropDownList;
                 comboBox3.Text = comboBox3.Items[0].ToString();
                 comboBox4.Items.AddRange(new object[] { "Parametric", "Low Shelf", "High Shelf" });
-                comboBox4.Width = 100;
                 comboBox4.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
                 comboBox4.DropDownStyle = ComboBoxStyle.DropDownList;
-                comboBox4.Text = comboBox1.Items[0].ToString();
+                comboBox4.Text = comboBox4.Items[0].ToString();
                 comboBox5.Items.AddRange(new object[] { "Parametric", "Low Shelf", "High Shelf" });
-                comboBox5.Width = 100;
                 comboBox5.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
                 comboBox5.DropDownStyle = ComboBoxStyle.DropDownList;
-                comboBox5.Text = comboBox2.Items[0].ToString();
+                comboBox5.Text = comboBox5.Items[0].ToString();
                 comboBox6.Items.AddRange(new object[] { "Parametric", "Low Shelf", "High Shelf" });
-                comboBox6.Width = 100;
                 comboBox6.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
                 comboBox6.DropDownStyle = ComboBoxStyle.DropDownList;
-                comboBox6.Text = comboBox3.Items[0].ToString();
+                comboBox6.Text = comboBox6.Items[0].ToString();
                 comboBox7.Items.AddRange(new object[] { "Parametric", "Low Shelf", "High Shelf" });
-                comboBox7.Width = 100;
                 comboBox7.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
                 comboBox7.DropDownStyle = ComboBoxStyle.DropDownList;
-                comboBox7.Text = comboBox1.Items[0].ToString();
+                comboBox7.Text = comboBox7.Items[0].ToString();
                 comboBox8.Items.AddRange(new object[] { "Parametric", "Low Shelf", "High Shelf" });
-                comboBox8.Width = 100;
                 comboBox8.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
                 comboBox8.DropDownStyle = ComboBoxStyle.DropDownList;
-                comboBox8.Text = comboBox2.Items[0].ToString();
+                comboBox8.Text = comboBox8.Items[0].ToString();
                 comboBox9.Items.AddRange(new object[] { "Parametric", "Low Shelf", "High Shelf" });
-                comboBox9.Width = 100;
                 comboBox9.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
                 comboBox9.DropDownStyle = ComboBoxStyle.DropDownList;
-                comboBox9.Text = comboBox3.Items[0].ToString();
+                comboBox9.Text = comboBox9.Items[0].ToString();
                 comboBox10.Items.AddRange(new object[] { "Parametric", "Low Shelf", "High Shelf" });
-                comboBox10.Width = 100;
                 comboBox10.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
                 comboBox10.DropDownStyle = ComboBoxStyle.DropDownList;
-                comboBox10.Text = comboBox1.Items[0].ToString();
+                comboBox10.Text = comboBox10.Items[0].ToString();
                 comboBox11.Items.AddRange(new object[] { "Parametric", "Low Shelf", "High Shelf" });
-                comboBox11.Width = 100;
                 comboBox11.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
                 comboBox11.DropDownStyle = ComboBoxStyle.DropDownList;
-                comboBox11.Text = comboBox2.Items[0].ToString();
+                comboBox11.Text = comboBox11.Items[0].ToString();
                 comboBox12.Items.AddRange(new object[] { "Parametric", "Low Shelf", "High Shelf" });
-                comboBox12.Width = 100;
                 comboBox12.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
                 comboBox12.DropDownStyle = ComboBoxStyle.DropDownList;
-                comboBox12.Text = comboBox3.Items[0].ToString();
+                comboBox12.Text = comboBox12.Items[0].ToString();
+                comboBox13.Items.AddRange(new object[] { "150V", "121V", "101V", "83V", "70V", "56V", "47V", "38V"});
+                comboBox13.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
+                comboBox13.DropDownStyle = ComboBoxStyle.DropDownList;
+                comboBox13.Text = comboBox13.Items[0].ToString();
             }
             //TRACKBARS
             {
@@ -465,6 +516,17 @@ namespace Bunker_GUI
                 macTrackBar3.Value = Array.IndexOf(centralGain, 0);
                 macTrackBar3.TrackLineColor = System.Drawing.Color.Black;
                 macTrackBar3.TrackLineSelectedColor = System.Drawing.Color.SteelBlue;
+                //TRACKBAR 4
+                macTrackBar4.Minimum = 0;
+                macTrackBar4.Maximum = centralVol.Length;
+                macTrackBar4.Value = Array.IndexOf(centralVol, 0) + 1;
+                macTrackBar4.TrackLineColor = System.Drawing.Color.Black;
+                macTrackBar4.TrackLineSelectedColor = System.Drawing.Color.SteelBlue;
+                macTrackBar4.Orientation = System.Windows.Forms.Orientation.Vertical;
+                macTrackBar4.TickFrequency = 25;
+                macTrackBar4.TickStyle = System.Windows.Forms.TickStyle.Both;
+                macTrackBar4.TickColor = System.Drawing.Color.Black;
+                macTrackBar4.ForeColor = System.Drawing.Color.Transparent;
             }
             //BUTTONS
             {
@@ -484,10 +546,15 @@ namespace Bunker_GUI
                 button3.Size = new Size(75, 35);
                 button3.Font = new Font("Microsoft Sans Serif", 8, FontStyle.Bold);
                 button3.BackColor = System.Drawing.Color.White;
+                //BUTTON 4
                 button4.Text = "System";
                 button4.Size = new Size(75, 35);
                 button4.Font = new Font("Microsoft Sans Serif", 8, FontStyle.Bold);
                 button4.BackColor = System.Drawing.Color.White;
+                //BUTTON 5
+                button5.Text = "Phase+";
+                button5.Font = new Font("Microsoft Sans Serif", 8, FontStyle.Regular);
+                button5.BackColor = System.Drawing.Color.White;
             }
         }
 
@@ -523,6 +590,8 @@ namespace Bunker_GUI
                 label24.Location = new Point(groupBox2.Width - (padx + label24.Width), label21.Location.Y);
                 label25.Location = new Point(groupBox2.Width - (padx + label25.Width), label22.Location.Y);
                 label26.Location = new Point(groupBox2.Width - (padx + label26.Width), label23.Location.Y);
+                label27.Location = new Point(groupBox4.Width - (label27.Width + 3 * padx / 2), 2 * pady);
+                label28.Location = new Point(groupBox4.Width - (label28.Width + 3 * padx / 2), groupBox4.Height - 6 * pady);
             }
             //TEXTBOX
             {
@@ -564,6 +633,9 @@ namespace Bunker_GUI
                 textBox34.Location = new Point(textBox13.Location.X + textBox13.Width + padx / 2, label16.Location.Y);
                 textBox35.Location = new Point(textBox13.Location.X + textBox13.Width + padx / 2, label17.Location.Y);
                 textBox36.Location = new Point(textBox13.Location.X + textBox13.Width + padx / 2, label18.Location.Y);
+                textBox37.Location = new Point(padx, 3 * pady / 2);
+                textBox38.Location = new Point(padx, groupBox4.Height - 2 * pady);
+                textBox39.Location = new Point(label28.Location.X - padx / 4, label27.Location.Y + pady);
             }
             //COMBOBOX
             {
@@ -579,6 +651,7 @@ namespace Bunker_GUI
                 comboBox10.Location = new Point(textBox25.Location.X + textBox25.Width + padx / 2, label16.Location.Y);
                 comboBox11.Location = new Point(textBox25.Location.X + textBox25.Width + padx / 2, label17.Location.Y);
                 comboBox12.Location = new Point(textBox25.Location.X + textBox25.Width + padx / 2, label18.Location.Y);
+                comboBox13.Location = new Point(textBox39.Location.X, label28.Location.Y + pady);
             }
             //CHECKBOX
             {
@@ -608,6 +681,13 @@ namespace Bunker_GUI
                 checkBox23.Location = new Point(checkBox1.Location.X + checkBox1.Width + padx/2, label17.Location.Y);
                 checkBox24.Location = new Point(checkBox1.Location.X + checkBox1.Width + padx/2, label18.Location.Y);
             }
+            //TRACKBARS
+            {
+                macTrackBar1.Location = new Point(label21.Location.X, label21.Location.Y + pady / 2);
+                macTrackBar2.Location = new Point(label22.Location.X, label22.Location.Y + pady / 2);
+                macTrackBar3.Location = new Point(label23.Location.X, label23.Location.Y + pady / 2);
+                macTrackBar4.Location = new Point(textBox37.Location.X + textBox37.Width / 4, textBox37.Location.Y + 3 * pady / 2);
+            }
             //LABELS PART2
             {
                 label2.Location = new Point(textBox1.Location.X, label1.Location.Y);                                   //FREQ
@@ -616,6 +696,14 @@ namespace Bunker_GUI
                 label19.Location = new Point(comboBox1.Location.X, label1.Location.Y);                                 //TYPE
                 label5.Location = new Point(checkBox1.Location.X-padx, label1.Location.Y);                                  //BYPASS
                 label6.Location = new Point(checkBox13.Location.X-padx/2, label1.Location.Y);                                 //SHOW
+
+                label29.Location = new Point(macTrackBar4.Location.X - padx, macTrackBar4.Location.Y + pady / 3);      //+15
+                label30.Location = new Point(macTrackBar4.Location.X - padx, label29.Location.Y + 3*pady/4);           //+10
+                label31.Location = new Point(macTrackBar4.Location.X - padx, label30.Location.Y + 5*pady/4);           //0
+                label32.Location = new Point(macTrackBar4.Location.X - padx, label31.Location.Y + 6*pady/4);           //-10
+                label33.Location = new Point(macTrackBar4.Location.X - padx, label32.Location.Y + 6*pady/4);           //-20
+                label34.Location = new Point(macTrackBar4.Location.X - padx, label33.Location.Y + 5*pady/4);           //-30
+                label35.Location = new Point(macTrackBar4.Location.X - padx, label34.Location.Y + 5*pady/4);           //-40
             }
             //GROUPBOX
             {
@@ -624,11 +712,9 @@ namespace Bunker_GUI
                 groupBox3.Location = new Point(groupBox1.Location.X + groupBox1.Width + padx / 2, groupBox2.Location.Y + groupBox2.Height + pady / 2);
                 groupBox4.Location = new Point(groupBox2.Location.X + groupBox2.Width + padx / 2, button1.Location.Y + button1.Height + pady / 2);
             }
-            //TRACKBARS
+            //BUTTONS PART 2
             {
-                macTrackBar1.Location = new Point(label21.Location.X, label21.Location.Y + pady/2);
-                macTrackBar2.Location = new Point(label22.Location.X, label22.Location.Y + pady/2);
-                macTrackBar3.Location = new Point(label23.Location.X, label23.Location.Y + pady/2);
+                button5.Location = new Point(textBox39.Location.X, textBox39.Location.Y + pady);
             }
         }
 
@@ -660,52 +746,62 @@ namespace Bunker_GUI
                 textBox11.Size = new Size(padx * 3, textBox11.Height);
                 textBox12.Size = new Size(padx * 3, textBox12.Height);
 
-                textBox13.Size = new Size(padx * 2, textBox1.Height);
-                textBox14.Size = new Size(padx * 2, textBox2.Height);
-                textBox15.Size = new Size(padx * 2, textBox3.Height);
-                textBox16.Size = new Size(padx * 2, textBox4.Height);
-                textBox17.Size = new Size(padx * 2, textBox5.Height);
-                textBox18.Size = new Size(padx * 2, textBox6.Height);
-                textBox19.Size = new Size(padx * 2, textBox7.Height);
-                textBox20.Size = new Size(padx * 2, textBox8.Height);
-                textBox21.Size = new Size(padx * 2, textBox9.Height);
-                textBox22.Size = new Size(padx * 2, textBox10.Height);
-                textBox23.Size = new Size(padx * 2, textBox11.Height);
-                textBox24.Size = new Size(padx * 2, textBox12.Height);
+                textBox13.Size = new Size(padx * 2, textBox13.Height);
+                textBox14.Size = new Size(padx * 2, textBox14.Height);
+                textBox15.Size = new Size(padx * 2, textBox15.Height);
+                textBox16.Size = new Size(padx * 2, textBox16.Height);
+                textBox17.Size = new Size(padx * 2, textBox17.Height);
+                textBox18.Size = new Size(padx * 2, textBox18.Height);
+                textBox19.Size = new Size(padx * 2, textBox19.Height);
+                textBox20.Size = new Size(padx * 2, textBox20.Height);
+                textBox21.Size = new Size(padx * 2, textBox21.Height);
+                textBox22.Size = new Size(padx * 2, textBox22.Height);
+                textBox23.Size = new Size(padx * 2, textBox23.Height);
+                textBox24.Size = new Size(padx * 2, textBox24.Height);
 
-                textBox25.Size = new Size(padx * 3, textBox1.Height);
-                textBox26.Size = new Size(padx * 3, textBox2.Height);
-                textBox27.Size = new Size(padx * 3, textBox3.Height);
-                textBox28.Size = new Size(padx * 3, textBox4.Height);
-                textBox29.Size = new Size(padx * 3, textBox5.Height);
-                textBox30.Size = new Size(padx * 3, textBox6.Height);
-                textBox31.Size = new Size(padx * 3, textBox7.Height);
-                textBox32.Size = new Size(padx * 3, textBox8.Height);
-                textBox33.Size = new Size(padx * 3, textBox9.Height);
-                textBox34.Size = new Size(padx * 3, textBox10.Height);
-                textBox35.Size = new Size(padx * 3, textBox11.Height);
-                textBox36.Size = new Size(padx * 3, textBox12.Height);
+                textBox25.Size = new Size(padx * 3, textBox25.Height);
+                textBox26.Size = new Size(padx * 3, textBox26.Height);
+                textBox27.Size = new Size(padx * 3, textBox27.Height);
+                textBox28.Size = new Size(padx * 3, textBox28.Height);
+                textBox29.Size = new Size(padx * 3, textBox29.Height);
+                textBox30.Size = new Size(padx * 3, textBox30.Height);
+                textBox31.Size = new Size(padx * 3, textBox31.Height);
+                textBox32.Size = new Size(padx * 3, textBox32.Height);
+                textBox33.Size = new Size(padx * 3, textBox33.Height);
+                textBox34.Size = new Size(padx * 3, textBox34.Height);
+                textBox35.Size = new Size(padx * 3, textBox35.Height);
+                textBox36.Size = new Size(padx * 3, textBox36.Height);
+
+                textBox37.Size = new Size(padx * 3, textBox37.Height);
+                textBox38.Size = new Size(padx * 2, textBox38.Height);
+                textBox39.Size = new Size(padx * 3, textBox39.Height);
             }
             //COMBOBOX
             {
-                comboBox1.Size = new Size(padx * 4, textBox1.Height);
-                comboBox2.Size = new Size(padx * 4, textBox2.Height);
-                comboBox3.Size = new Size(padx * 4, textBox3.Height);
-                comboBox4.Size = new Size(padx * 4, textBox4.Height);
-                comboBox5.Size = new Size(padx * 4, textBox5.Height);
-                comboBox6.Size = new Size(padx * 4, textBox6.Height);
-                comboBox7.Size = new Size(padx * 4, textBox7.Height);
-                comboBox8.Size = new Size(padx * 4, textBox8.Height);
-                comboBox9.Size = new Size(padx * 4, textBox9.Height);
-                comboBox10.Size = new Size(padx * 4, textBox10.Height);
-                comboBox11.Size = new Size(padx * 4, textBox11.Height);
-                comboBox12.Size = new Size(padx * 4, textBox12.Height);
+                comboBox1.Size = new Size(padx * 4, comboBox1.Height);
+                comboBox2.Size = new Size(padx * 4, comboBox2.Height);
+                comboBox3.Size = new Size(padx * 4, comboBox3.Height);
+                comboBox4.Size = new Size(padx * 4, comboBox4.Height);
+                comboBox5.Size = new Size(padx * 4, comboBox5.Height);
+                comboBox6.Size = new Size(padx * 4, comboBox6.Height);
+                comboBox7.Size = new Size(padx * 4, comboBox7.Height);
+                comboBox8.Size = new Size(padx * 4, comboBox8.Height);
+                comboBox9.Size = new Size(padx * 4, comboBox9.Height);
+                comboBox10.Size = new Size(padx * 4, comboBox10.Height);
+                comboBox11.Size = new Size(padx * 4, comboBox11.Height);
+                comboBox12.Size = new Size(padx * 4, comboBox12.Height);
+                comboBox13.Size = new Size(padx * 3, comboBox13.Height);
             }
             //TRACKBARS
             {
                 macTrackBar1.Size = new Size((label24.Location.X + label24.Width) - label21.Location.X, macTrackBar1.Height);
                 macTrackBar2.Size = new Size((label25.Location.X + label25.Width) - label22.Location.X, macTrackBar2.Height);
                 macTrackBar3.Size = new Size((label26.Location.X + label26.Width) - label23.Location.X, macTrackBar3.Height);
+                macTrackBar4.Size = new Size(macTrackBar4.Width, (textBox38.Location.Y - pady / 2) - macTrackBar4.Location.Y);
+            }
+            //BUTTONS
+            {
+                button5.Size = new Size(textBox39.Width, button5.Height);
             }
         }
 
@@ -735,6 +831,18 @@ namespace Bunker_GUI
             return gains;
         }
 
+        static private double[] generateCentralVol()
+        {
+            double[] vol = new double[275];
+            int c = 0;
+            for (double i = -398; i <= 150; i += 2)
+            {
+                vol[c] = i / 10;
+                c++;
+            }
+            return vol;
+        }
+        
         private void macTrackBar1_ValueChanged(object sender, decimal value)
         {
             resetTextboxColors();
@@ -879,6 +987,16 @@ namespace Bunker_GUI
             }
         }
 
+        private void macTrackBar4_ValueChanged(object sender, decimal value)
+        {
+            if (macTrackBar4.Value == 0) textBox38.Text = "Mute";
+            else
+            {
+                textBox38.Text = centralVol[macTrackBar4.Value - 1].ToString() + "dB";
+                volValues[currentChannel - 1] = centralVol[macTrackBar4.Value - 1];
+            }
+        }
+
         private void Form1_ClientSizeChanged(object sender, EventArgs e)
         {
             padx = this.Width / 48;
@@ -979,6 +1097,10 @@ namespace Bunker_GUI
             textBox35.ForeColor = System.Drawing.Color.Black;
             textBox36.BackColor = System.Drawing.Color.White;
             textBox36.ForeColor = System.Drawing.Color.Black;
+            textBox38.BackColor = System.Drawing.Color.White;
+            textBox38.ForeColor = System.Drawing.Color.Black;
+            textBox39.BackColor = System.Drawing.Color.White;
+            textBox39.ForeColor = System.Drawing.Color.Black;
         }
     
         private void resetButtonColors()
@@ -996,6 +1118,7 @@ namespace Bunker_GUI
             macTrackBar1.Value = Array.IndexOf(centralFreq, freqValues[currentChannel - 1][currentBand - 1]);
             macTrackBar2.Value = Array.IndexOf(centralQ, qValues[currentChannel - 1][currentBand - 1]);
             macTrackBar3.Value = Array.IndexOf(centralGain, gainValues[currentChannel - 1][currentBand - 1]);
+            macTrackBar4.Value = Array.IndexOf(centralVol, volValues[currentChannel - 1]) + 1;
         }
 
         private void updateBoxes()
@@ -1398,11 +1521,26 @@ namespace Bunker_GUI
             textBox36.ForeColor = System.Drawing.Color.White;
         }
 
+        private void textBox38_Click(object sender, EventArgs e)
+        {
+            resetTextboxColors();
+            textBox38.BackColor = System.Drawing.Color.SteelBlue;
+            textBox38.ForeColor = System.Drawing.Color.White;
+        }
+
+        private void textBox39_Click(object sender, EventArgs e)
+        {
+            resetTextboxColors();
+            textBox39.BackColor = System.Drawing.Color.SteelBlue;
+            textBox39.ForeColor = System.Drawing.Color.White;
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
             currentChannel = 1;
             currentBand = 1;
             label20.Text = "Current EQ Band: 1";
+            textBox37.Text = "CH 1"; 
             updateTrackbars();
             updateBoxes();
             resetButtonColors();
@@ -1416,6 +1554,7 @@ namespace Bunker_GUI
             currentChannel = 2;
             currentBand = 1;
             label20.Text = "Current EQ Band: 1";
+            textBox37.Text = "CH 2";
             updateTrackbars();
             updateBoxes();
             resetButtonColors();
@@ -1429,12 +1568,30 @@ namespace Bunker_GUI
             currentChannel = 3;
             currentBand = 1;
             label20.Text = "Current EQ Band: 1";
+            textBox37.Text = "CH 3";
             updateTrackbars();
             updateBoxes();
             resetButtonColors();
             resetTextboxColors();
             button3.BackColor = System.Drawing.Color.SteelBlue;
             button3.ForeColor = System.Drawing.Color.White;
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            if (Convert.ToBoolean(phase))
+            {
+                button5.Text = "Phase-";
+                button5.BackColor = System.Drawing.Color.SteelBlue;
+                button5.ForeColor = System.Drawing.Color.White;
+            }
+            else
+            {
+                button5.Text = "Phase+";
+                button5.BackColor = System.Drawing.Color.White;
+                button5.ForeColor = System.Drawing.Color.Black;
+            }
+            phase ^= 1;
         }
     }
 }
