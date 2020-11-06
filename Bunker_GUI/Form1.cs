@@ -12,11 +12,15 @@ namespace Bunker_GUI
 {
     public partial class Form1 : Form
     {
+        private int currentBand = 1;
+        private int currentChannel = 1;
+        //TEXTBOX FUNCTIONALITY
+        private bool notEnter = true;
+        //WIDGET LOCATION AND SIZE
         private int padx = 30;
         private int pady = 25;
         private int phase = 1;
-        private int currentBand = 1;
-        private int currentChannel = 1;
+        //INFORMATION STORING
         private double[] plotFrequencies = generateKeyFrequencies();
         private double[][] freqValues = new double[3][] 
         {
@@ -37,6 +41,7 @@ namespace Bunker_GUI
             new double[12]
         };
         private double[] volValues = new double[3];
+        private double[] delayValues = new double[3];
         private double[] centralFreq = new double[]
         {
             19.7,20.1,20.5,20.9,21.3,21.7,22.1,22.5,23.0,23.4,23.9,24.3,24.8,25.3,25.8,26.3,26.8,27.3,27.8,28.4,28.9,29.5,30.1,30.7,31.3,
@@ -68,6 +73,7 @@ namespace Bunker_GUI
         };
         private double[] centralGain = generateCentralGain();
         private double[] centralVol = generateCentralVol();
+        private double[] centralDelay = generateCentralDelay();
 
         public Form1()
         {
@@ -84,7 +90,7 @@ namespace Bunker_GUI
             updateWidgetsSize();
             updateWidgetsPosition();
         }
-
+        //=======================================================================INITIALIZATION======================================================================================
         private void initializeValues()
         {
             for (int i = 0; i < 3; i++)
@@ -186,7 +192,7 @@ namespace Bunker_GUI
                 label25.BackColor = System.Drawing.Color.Transparent;
                 label26.Text = "0.00";
                 label26.BackColor = System.Drawing.Color.Transparent;
-                label27.Text = "Delay";
+                label27.Text = "Delay (ms)";
                 label27.Font = new Font("Microsoft Sans Serif", 8, FontStyle.Bold);
                 label27.BackColor = System.Drawing.Color.Transparent;
                 label28.Text = "VPL SET";
@@ -428,11 +434,17 @@ namespace Bunker_GUI
                 textBox38.Text = "Mute";
                 textBox39.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
                 textBox39.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-                textBox39.Text = "Ejemplo";
+                textBox39.Text = "0.00";
+                textBox40.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
+                textBox40.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+                textBox40.Text = "20.1";
                 textBox41.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
                 textBox41.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
                 textBox41.Text = "0.1";
                 textBox41.Enabled = false;
+                textBox42.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
+                textBox42.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+                textBox42.Text = "20200.0";
                 textBox43.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
                 textBox43.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
                 textBox43.Text = "0.1";
@@ -492,6 +504,14 @@ namespace Bunker_GUI
                 comboBox13.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
                 comboBox13.DropDownStyle = ComboBoxStyle.DropDownList;
                 comboBox13.Text = comboBox13.Items[0].ToString();
+                comboBox14.Items.AddRange(new object[] { "OFF", "12dB Besell", "12dB Butterworth", "12dB Link Riley", "24dB Besell", "24dB Butterworth", "24dB Link Riley", "24dB USER" });
+                comboBox14.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
+                comboBox14.DropDownStyle = ComboBoxStyle.DropDownList;
+                comboBox14.Text = comboBox14.Items[0].ToString();
+                comboBox15.Items.AddRange(new object[] { "OFF", "12dB Besell", "12dB Butterworth", "12dB Link Riley", "24dB Besell", "24dB Butterworth", "24dB Link Riley", "24dB USER" });
+                comboBox15.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
+                comboBox15.DropDownStyle = ComboBoxStyle.DropDownList;
+                comboBox15.Text = comboBox15.Items[0].ToString();
             }
             //TRACKBARS
             {
@@ -558,6 +578,58 @@ namespace Bunker_GUI
             }
         }
 
+        static private double[] generateKeyFrequencies()
+        {
+            double[] freq = new double[809];
+            int cont = 0;
+            for (int i = 10; i <= 138; i++) { freq[cont] = i; cont++; }
+            for (int i = 140; i <= 296; i += 2) { freq[cont] = i; cont++; }
+            for (int i = 300; i <= 554; i += 4) { freq[cont] = i; cont++; }
+            for (int i = 560; i <= 1856; i += 8) { freq[cont] = i; cont++; }
+            for (int i = 1866; i <= 9600; i += 27) { freq[cont] = i; cont++; }
+            for (int i = 9733; i <= 20000; i += 133) { freq[cont] = i; cont++; }
+            for (int i = 20000; i <= 24000; i += 500) { freq[cont] = i; cont++; }
+            return freq;
+        }
+
+        static private double[] generateCentralGain()
+        {
+            double[] gains = new double[421];
+            int counter = 0;
+            for (int i = -300; i <= 120; i++)
+            {
+                gains[counter] = (double)i / 10;
+                counter++;
+            }
+            return gains;
+        }
+
+        static private double[] generateCentralVol()
+        {
+            double[] vol = new double[275];
+            int c = 0;
+            for (double i = -398; i <= 150; i += 2)
+            {
+                vol[c] = i / 10;
+                c++;
+            }
+            return vol;
+        }
+
+        static private double[] generateCentralDelay()
+        {
+            double[] delay = new double[10001];
+            int c = 0;
+            for (int i = 0; i <= 20000; i += 2)
+            {
+                delay[c] = (double)i / (double)100;
+                c++;
+            }
+            return delay;
+        }
+        //=======================================================================INITIALIZATION======================================================================================
+        
+        //==========================================================================UPDATING=========================================================================================
         private void updateWidgetsPosition()
         {
             cartesianChart1.Location = new Point(padx / 2, pady / 2);
@@ -592,6 +664,14 @@ namespace Bunker_GUI
                 label26.Location = new Point(groupBox2.Width - (padx + label26.Width), label23.Location.Y);
                 label27.Location = new Point(groupBox4.Width - (label27.Width + 3 * padx / 2), 2 * pady);
                 label28.Location = new Point(groupBox4.Width - (label28.Width + 3 * padx / 2), groupBox4.Height - 6 * pady);
+                label36.Location = new Point(padx, pady);
+                label37.Location = new Point(groupBox2.Width / 2, pady);
+                label38.Location = new Point(padx, label36.Location.Y + pady);
+                label39.Location = new Point(padx, label38.Location.Y + pady);
+                label40.Location = new Point(padx, label39.Location.Y + pady);
+                label41.Location = new Point(label37.Location.X, label37.Location.Y + pady);
+                label42.Location = new Point(label37.Location.X, label41.Location.Y + pady);
+                label43.Location = new Point(label37.Location.X, label42.Location.Y + pady);
             }
             //TEXTBOX
             {
@@ -636,6 +716,10 @@ namespace Bunker_GUI
                 textBox37.Location = new Point(padx, 3 * pady / 2);
                 textBox38.Location = new Point(padx, groupBox4.Height - 2 * pady);
                 textBox39.Location = new Point(label28.Location.X - padx / 4, label27.Location.Y + pady);
+                textBox40.Location = new Point(label39.Location.X + label39.Width + padx, label39.Location.Y);
+                textBox41.Location = new Point(textBox40.Location.X, label40.Location.Y);
+                textBox42.Location = new Point(label42.Location.X + label42.Width + padx, label42.Location.Y);
+                textBox43.Location = new Point(textBox42.Location.X, label43.Location.Y);
             }
             //COMBOBOX
             {
@@ -652,6 +736,8 @@ namespace Bunker_GUI
                 comboBox11.Location = new Point(textBox25.Location.X + textBox25.Width + padx / 2, label17.Location.Y);
                 comboBox12.Location = new Point(textBox25.Location.X + textBox25.Width + padx / 2, label18.Location.Y);
                 comboBox13.Location = new Point(textBox39.Location.X, label28.Location.Y + pady);
+                comboBox14.Location = new Point(textBox40.Location.X, label38.Location.Y);
+                comboBox15.Location = new Point(textBox42.Location.X, label41.Location.Y);
             }
             //CHECKBOX
             {
@@ -775,6 +861,10 @@ namespace Bunker_GUI
                 textBox37.Size = new Size(padx * 3, textBox37.Height);
                 textBox38.Size = new Size(padx * 2, textBox38.Height);
                 textBox39.Size = new Size(padx * 3, textBox39.Height);
+                textBox40.Size = new Size(padx * 3, textBox40.Height);
+                textBox41.Size = new Size(padx * 3, textBox41.Height);
+                textBox42.Size = new Size(padx * 3, textBox42.Height);
+                textBox43.Size = new Size(padx * 3, textBox43.Height);
             }
             //COMBOBOX
             {
@@ -791,6 +881,8 @@ namespace Bunker_GUI
                 comboBox11.Size = new Size(padx * 4, comboBox11.Height);
                 comboBox12.Size = new Size(padx * 4, comboBox12.Height);
                 comboBox13.Size = new Size(padx * 3, comboBox13.Height);
+                comboBox14.Size = new Size(padx * 4, comboBox14.Height);
+                comboBox15.Size = new Size(padx * 4, comboBox15.Height);
             }
             //TRACKBARS
             {
@@ -803,44 +895,6 @@ namespace Bunker_GUI
             {
                 button5.Size = new Size(textBox39.Width, button5.Height);
             }
-        }
-
-        static private double[] generateKeyFrequencies()
-        {
-            double[] freq = new double[809];
-            int cont = 0;
-            for (int i = 10; i <= 138; i++) { freq[cont] = i; cont++; }
-            for (int i = 140; i <= 296; i += 2) { freq[cont] = i; cont++; }
-            for (int i = 300; i <= 554; i += 4) { freq[cont] = i; cont++; }
-            for (int i = 560; i <= 1856; i += 8) { freq[cont] = i; cont++; }
-            for (int i = 1866; i <= 9600; i += 27) { freq[cont] = i; cont++; }
-            for (int i = 9733; i <= 20000; i += 133) { freq[cont] = i; cont++; }
-            for (int i = 20000; i <= 24000; i += 500) { freq[cont] = i; cont++; }
-            return freq;
-        }
-
-        static private double[] generateCentralGain()
-        {
-            double[] gains = new double[421];
-            int counter = 0;
-            for (int i = -300; i <= 120; i++)
-            {
-                gains[counter] = (double)i / 10;
-                counter++;
-            }
-            return gains;
-        }
-
-        static private double[] generateCentralVol()
-        {
-            double[] vol = new double[275];
-            int c = 0;
-            for (double i = -398; i <= 150; i += 2)
-            {
-                vol[c] = i / 10;
-                c++;
-            }
-            return vol;
         }
         
         private void macTrackBar1_ValueChanged(object sender, decimal value)
@@ -1101,6 +1155,10 @@ namespace Bunker_GUI
             textBox38.ForeColor = System.Drawing.Color.Black;
             textBox39.BackColor = System.Drawing.Color.White;
             textBox39.ForeColor = System.Drawing.Color.Black;
+            textBox40.BackColor = System.Drawing.Color.White;
+            textBox40.ForeColor = System.Drawing.Color.Black;
+            textBox42.BackColor = System.Drawing.Color.White;
+            textBox42.ForeColor = System.Drawing.Color.Black;
         }
     
         private void resetButtonColors()
@@ -1159,8 +1217,12 @@ namespace Bunker_GUI
             textBox34.Text = gainValues[currentChannel - 1][9].ToString();
             textBox35.Text = gainValues[currentChannel - 1][10].ToString();
             textBox36.Text = gainValues[currentChannel - 1][11].ToString();
+            textBox38.Text = volValues[currentChannel - 1].ToString();
+            textBox39.Text = delayValues[currentChannel - 1].ToString();
         }
-        
+        //==========================================================================UPDATING=========================================================================================
+
+        //=======================================================================WIDGET CLICKS======================================================================================
         private void textBox1_Click(object sender, EventArgs e)
         {
             currentBand = 1;
@@ -1535,6 +1597,20 @@ namespace Bunker_GUI
             textBox39.ForeColor = System.Drawing.Color.White;
         }
 
+        private void textBox40_Click(object sender, EventArgs e)
+        {
+            resetTextboxColors();
+            textBox40.BackColor = System.Drawing.Color.SteelBlue;
+            textBox40.ForeColor = System.Drawing.Color.White;
+        }
+
+        private void textBox42_Click(object sender, EventArgs e)
+        {
+            resetTextboxColors();
+            textBox42.BackColor = System.Drawing.Color.SteelBlue;
+            textBox42.ForeColor = System.Drawing.Color.White;
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
             currentChannel = 1;
@@ -1592,6 +1668,1328 @@ namespace Bunker_GUI
                 button5.ForeColor = System.Drawing.Color.Black;
             }
             phase ^= 1;
+        }
+
+        //=======================================================================WIDGET CLICKS======================================================================================
+
+        //=======================================================================WIDGET WRITING======================================================================================
+        private double findClosestValue(double value, char c)
+        {
+            double[] container;
+            switch (c)
+            {
+                case 'f':    //frequency
+                    container = centralFreq;
+                    break;   
+                case 'q':    //q value
+                    container = centralQ;
+                    break;
+                case 'g':    //gain value
+                    container = centralGain;
+                    break;
+                case 'v':    //volume
+                    container = centralVol;
+                    break;
+                case 'd':    //delay
+                    container = centralDelay;
+                    break;
+                default:
+                    container = new double[] { 0 };
+                    break;
+            }
+            double min = container[0], max = container[container.Length - 1], result = 0;
+            for (int i = 0; i < container.Length; i++)
+            {
+                if (value == container[i]) return container[i];
+                if (value < container[i]) { max = container[i]; break; }
+                else min = container[i];
+            }
+            result = (Math.Abs(max - value) < Math.Abs(min - value)) ? max : min;
+            return result;
+        }
+
+        private void textBox1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                notEnter = false;
+                if (textBox1.Text != "" && textBox1.Text != ".")
+                {
+                    double closest = findClosestValue(Convert.ToDouble(textBox1.Text), 'f');
+                    textBox1.Text = closest.ToString();
+                    freqValues[currentChannel - 1][currentBand - 1] = closest;
+                    updateTrackbars();
+                }
+                else textBox1.Text = freqValues[currentChannel - 1][currentBand - 1].ToString();
+            }
+            else if (e.KeyCode == Keys.Left) macTrackBar1.Value--;
+            else if (e.KeyCode == Keys.Right) macTrackBar1.Value++;
+        }
+
+        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (notEnter)
+            {
+                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.')) e.Handled = true;      //if user presses letters or symbols
+                else if (e.KeyChar == '\r') textBox1.Text = textBox1.Text.Substring(0, textBox1.Text.Length - 1);
+                else if (e.KeyChar == '.')
+                {
+                    if (textBox1.Text.Any(ch => ch == '.')) e.Handled = true;    //if there's already a point
+                }
+            }
+            notEnter = true;
+        }
+
+        private void textBox2_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                notEnter = false;
+                if (textBox2.Text != "" && textBox2.Text != ".")
+                {
+                    double closest = findClosestValue(Convert.ToDouble(textBox2.Text), 'f');
+                    textBox2.Text = closest.ToString();
+                    freqValues[currentChannel - 1][currentBand - 1] = closest;
+                    updateTrackbars();
+                }
+                else textBox2.Text = freqValues[currentChannel - 1][currentBand - 1].ToString();
+            }
+            else if (e.KeyCode == Keys.Left) macTrackBar1.Value--;
+            else if (e.KeyCode == Keys.Right) macTrackBar1.Value++;
+        }
+
+        private void textBox2_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (notEnter)
+            {
+                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.')) e.Handled = true;      //if user presses letters or symbols
+                else if (e.KeyChar == '\r') textBox2.Text = textBox2.Text.Substring(0, textBox2.Text.Length - 1);
+                else if (e.KeyChar == '.')
+                {
+                    if (textBox2.Text.Any(ch => ch == '.')) e.Handled = true;    //if there's already a point
+                }
+            }
+            notEnter = true;
+        }
+
+        private void textBox3_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                notEnter = false;
+                if (textBox3.Text != "" && textBox3.Text != ".")
+                {
+                    double closest = findClosestValue(Convert.ToDouble(textBox3.Text), 'f');
+                    textBox3.Text = closest.ToString();
+                    freqValues[currentChannel - 1][currentBand - 1] = closest;
+                    updateTrackbars();
+                }
+                else textBox3.Text = freqValues[currentChannel - 1][currentBand - 1].ToString();
+            }
+            else if (e.KeyCode == Keys.Left) macTrackBar1.Value--;
+            else if (e.KeyCode == Keys.Right) macTrackBar1.Value++;
+        }
+
+        private void textBox3_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (notEnter)
+            {
+                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.')) e.Handled = true;      //if user presses letters or symbols
+                else if (e.KeyChar == '\r') textBox3.Text = textBox3.Text.Substring(0, textBox3.Text.Length - 1);
+                else if (e.KeyChar == '.')
+                {
+                    if (textBox3.Text.Any(ch => ch == '.')) e.Handled = true;    //if there's already a point
+                }
+            }
+            notEnter = true;
+        }
+
+        private void textBox4_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                notEnter = false;
+                if (textBox4.Text != "" && textBox4.Text != ".")
+                {
+                    double closest = findClosestValue(Convert.ToDouble(textBox4.Text), 'f');
+                    textBox4.Text = closest.ToString();
+                    freqValues[currentChannel - 1][currentBand - 1] = closest;
+                    updateTrackbars();
+                }
+                else textBox4.Text = freqValues[currentChannel - 1][currentBand - 1].ToString();
+            }
+            else if (e.KeyCode == Keys.Left) macTrackBar1.Value--;
+            else if (e.KeyCode == Keys.Right) macTrackBar1.Value++;
+        }
+
+        private void textBox4_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (notEnter)
+            {
+                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.')) e.Handled = true;      //if user presses letters or symbols
+                else if (e.KeyChar == '\r') textBox4.Text = textBox4.Text.Substring(0, textBox4.Text.Length - 1);
+                else if (e.KeyChar == '.')
+                {
+                    if (textBox4.Text.Any(ch => ch == '.')) e.Handled = true;    //if there's already a point
+                }
+            }
+            notEnter = true;
+        }
+
+        private void textBox5_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                notEnter = false;
+                if (textBox5.Text != "" && textBox5.Text != ".")
+                {
+                    double closest = findClosestValue(Convert.ToDouble(textBox5.Text), 'f');
+                    textBox5.Text = closest.ToString();
+                    freqValues[currentChannel - 1][currentBand - 1] = closest;
+                    updateTrackbars();
+                }
+                else textBox5.Text = freqValues[currentChannel - 1][currentBand - 1].ToString();
+            }
+            else if (e.KeyCode == Keys.Left) macTrackBar1.Value--;
+            else if (e.KeyCode == Keys.Right) macTrackBar1.Value++;
+        }
+
+        private void textBox5_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (notEnter)
+            {
+                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.')) e.Handled = true;      //if user presses letters or symbols
+                else if (e.KeyChar == '\r') textBox5.Text = textBox5.Text.Substring(0, textBox5.Text.Length - 1);
+                else if (e.KeyChar == '.')
+                {
+                    if (textBox5.Text.Any(ch => ch == '.')) e.Handled = true;    //if there's already a point
+                }
+            }
+            notEnter = true;
+        }
+
+        private void textBox6_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                notEnter = false;
+                if (textBox6.Text != "" && textBox6.Text != ".")
+                {
+                    double closest = findClosestValue(Convert.ToDouble(textBox6.Text), 'f');
+                    textBox6.Text = closest.ToString();
+                    freqValues[currentChannel - 1][currentBand - 1] = closest;
+                    updateTrackbars();
+                }
+                else textBox6.Text = freqValues[currentChannel - 1][currentBand - 1].ToString();
+            }
+            else if (e.KeyCode == Keys.Left) macTrackBar1.Value--;
+            else if (e.KeyCode == Keys.Right) macTrackBar1.Value++;
+        }
+
+        private void textBox6_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (notEnter)
+            {
+                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.')) e.Handled = true;      //if user presses letters or symbols
+                else if (e.KeyChar == '\r') textBox6.Text = textBox6.Text.Substring(0, textBox6.Text.Length - 1);
+                else if (e.KeyChar == '.')
+                {
+                    if (textBox6.Text.Any(ch => ch == '.')) e.Handled = true;    //if there's already a point
+                }
+            }
+            notEnter = true;
+        }
+
+        private void textBox7_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                notEnter = false;
+                if (textBox7.Text != "" && textBox7.Text != ".")
+                {
+                    double closest = findClosestValue(Convert.ToDouble(textBox7.Text), 'f');
+                    textBox7.Text = closest.ToString();
+                    freqValues[currentChannel - 1][currentBand - 1] = closest;
+                    updateTrackbars();
+                }
+                else textBox7.Text = freqValues[currentChannel - 1][currentBand - 1].ToString();
+            }
+            else if (e.KeyCode == Keys.Left) macTrackBar1.Value--;
+            else if (e.KeyCode == Keys.Right) macTrackBar1.Value++;
+        }
+
+        private void textBox7_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (notEnter)
+            {
+                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.')) e.Handled = true;      //if user presses letters or symbols
+                else if (e.KeyChar == '\r') textBox7.Text = textBox7.Text.Substring(0, textBox7.Text.Length - 1);
+                else if (e.KeyChar == '.')
+                {
+                    if (textBox7.Text.Any(ch => ch == '.')) e.Handled = true;    //if there's already a point
+                }
+            }
+            notEnter = true;
+        }
+
+        private void textBox8_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                notEnter = false;
+                if (textBox8.Text != "" && textBox8.Text != ".")
+                {
+                    double closest = findClosestValue(Convert.ToDouble(textBox8.Text), 'f');
+                    textBox8.Text = closest.ToString();
+                    freqValues[currentChannel - 1][currentBand - 1] = closest;
+                    updateTrackbars();
+                }
+                else textBox8.Text = freqValues[currentChannel - 1][currentBand - 1].ToString();
+            }
+            else if (e.KeyCode == Keys.Left) macTrackBar1.Value--;
+            else if (e.KeyCode == Keys.Right) macTrackBar1.Value++;
+        }
+
+        private void textBox8_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (notEnter)
+            {
+                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.')) e.Handled = true;      //if user presses letters or symbols
+                else if (e.KeyChar == '\r') textBox8.Text = textBox8.Text.Substring(0, textBox8.Text.Length - 1);
+                else if (e.KeyChar == '.')
+                {
+                    if (textBox8.Text.Any(ch => ch == '.')) e.Handled = true;    //if there's already a point
+                }
+            }
+            notEnter = true;
+        }
+
+        private void textBox9_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                notEnter = false;
+                if (textBox9.Text != "" && textBox9.Text != ".")
+                {
+                    double closest = findClosestValue(Convert.ToDouble(textBox9.Text), 'f');
+                    textBox9.Text = closest.ToString();
+                    freqValues[currentChannel - 1][currentBand - 1] = closest;
+                    updateTrackbars();
+                }
+                else textBox9.Text = freqValues[currentChannel - 1][currentBand - 1].ToString();
+            }
+            else if (e.KeyCode == Keys.Left) macTrackBar1.Value--;
+            else if (e.KeyCode == Keys.Right) macTrackBar1.Value++;
+        }
+
+        private void textBox9_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (notEnter)
+            {
+                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.')) e.Handled = true;      //if user presses letters or symbols
+                else if (e.KeyChar == '\r') textBox9.Text = textBox9.Text.Substring(0, textBox9.Text.Length - 1);
+                else if (e.KeyChar == '.')
+                {
+                    if (textBox9.Text.Any(ch => ch == '.')) e.Handled = true;    //if there's already a point
+                }
+            }
+            notEnter = true;
+        }
+
+        private void textBox10_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                notEnter = false;
+                if (textBox10.Text != "" && textBox10.Text != ".")
+                {
+                    double closest = findClosestValue(Convert.ToDouble(textBox10.Text), 'f');
+                    textBox10.Text = closest.ToString();
+                    freqValues[currentChannel - 1][currentBand - 1] = closest;
+                    updateTrackbars();
+                }
+                else textBox10.Text = freqValues[currentChannel - 1][currentBand - 1].ToString();
+            }
+            else if (e.KeyCode == Keys.Left) macTrackBar1.Value--;
+            else if (e.KeyCode == Keys.Right) macTrackBar1.Value++;
+        }
+
+        private void textBox10_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (notEnter)
+            {
+                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.')) e.Handled = true;      //if user presses letters or symbols
+                else if (e.KeyChar == '\r') textBox10.Text = textBox10.Text.Substring(0, textBox10.Text.Length - 1);
+                else if (e.KeyChar == '.')
+                {
+                    if (textBox10.Text.Any(ch => ch == '.')) e.Handled = true;    //if there's already a point
+                }
+            }
+            notEnter = true;
+        }
+
+        private void textBox11_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                notEnter = false;
+                if (textBox11.Text != "" && textBox11.Text != ".")
+                {
+                    double closest = findClosestValue(Convert.ToDouble(textBox11.Text), 'f');
+                    textBox11.Text = closest.ToString();
+                    freqValues[currentChannel - 1][currentBand - 1] = closest;
+                    updateTrackbars();
+                }
+                else textBox11.Text = freqValues[currentChannel - 1][currentBand - 1].ToString();
+            }
+            else if (e.KeyCode == Keys.Left) macTrackBar1.Value--;
+            else if (e.KeyCode == Keys.Right) macTrackBar1.Value++;
+        }
+
+        private void textBox11_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (notEnter)
+            {
+                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.')) e.Handled = true;      //if user presses letters or symbols
+                else if (e.KeyChar == '\r') textBox11.Text = textBox11.Text.Substring(0, textBox11.Text.Length - 1);
+                else if (e.KeyChar == '.')
+                {
+                    if (textBox11.Text.Any(ch => ch == '.')) e.Handled = true;    //if there's already a point
+                }
+            }
+            notEnter = true;
+        }
+
+        private void textBox12_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                notEnter = false;
+                if (textBox12.Text != "" && textBox12.Text != ".")
+                {
+                    double closest = findClosestValue(Convert.ToDouble(textBox12.Text), 'f');
+                    textBox12.Text = closest.ToString();
+                    freqValues[currentChannel - 1][currentBand - 1] = closest;
+                    updateTrackbars();
+                }
+                else textBox12.Text = freqValues[currentChannel - 1][currentBand - 1].ToString();
+            }
+            else if (e.KeyCode == Keys.Left) macTrackBar1.Value--;
+            else if (e.KeyCode == Keys.Right) macTrackBar1.Value++;
+        }
+
+        private void textBox12_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (notEnter)
+            {
+                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.')) e.Handled = true;      //if user presses letters or symbols
+                else if (e.KeyChar == '\r') textBox12.Text = textBox12.Text.Substring(0, textBox12.Text.Length - 1);
+                else if (e.KeyChar == '.')
+                {
+                    if (textBox12.Text.Any(ch => ch == '.')) e.Handled = true;    //if there's already a point
+                }
+            }
+            notEnter = true;
+        }
+
+        private void textBox13_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                notEnter = false;
+                if (textBox13.Text != "" && textBox13.Text != ".")
+                {
+                    double closest = findClosestValue(Convert.ToDouble(textBox13.Text), 'q');
+                    textBox13.Text = closest.ToString();
+                    qValues[currentChannel - 1][currentBand - 1] = closest;
+                    updateTrackbars();
+                }
+                else textBox13.Text = qValues[currentChannel - 1][currentBand - 1].ToString();
+            }
+            else if (e.KeyCode == Keys.Left) macTrackBar2.Value--;
+            else if (e.KeyCode == Keys.Right) macTrackBar2.Value++;
+        }
+
+        private void textBox13_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (notEnter)
+            {
+                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.')) e.Handled = true;      //if user presses letters or symbols
+                else if (e.KeyChar == '\r') textBox13.Text = textBox13.Text.Substring(0, textBox13.Text.Length - 1);
+                else if (e.KeyChar == '.')
+                {
+                    if (textBox13.Text.Any(ch => ch == '.')) e.Handled = true;    //if there's already a point
+                }
+            }
+            notEnter = true;
+        }
+
+        private void textBox14_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                notEnter = false;
+                if (textBox14.Text != "" && textBox14.Text != ".")
+                {
+                    double closest = findClosestValue(Convert.ToDouble(textBox14.Text), 'q');
+                    textBox14.Text = closest.ToString();
+                    qValues[currentChannel - 1][currentBand - 1] = closest;
+                    updateTrackbars();
+                }
+                else textBox14.Text = qValues[currentChannel - 1][currentBand - 1].ToString();
+            }
+            else if (e.KeyCode == Keys.Left) macTrackBar2.Value--;
+            else if (e.KeyCode == Keys.Right) macTrackBar2.Value++;
+        }
+
+        private void textBox14_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (notEnter)
+            {
+                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.')) e.Handled = true;      //if user presses letters or symbols
+                else if (e.KeyChar == '\r') textBox14.Text = textBox14.Text.Substring(0, textBox14.Text.Length - 1);
+                else if (e.KeyChar == '.')
+                {
+                    if (textBox14.Text.Any(ch => ch == '.')) e.Handled = true;    //if there's already a point
+                }
+            }
+            notEnter = true;
+        }
+
+        private void textBox15_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                notEnter = false;
+                if (textBox15.Text != "" && textBox15.Text != ".")
+                {
+                    double closest = findClosestValue(Convert.ToDouble(textBox15.Text), 'q');
+                    textBox15.Text = closest.ToString();
+                    qValues[currentChannel - 1][currentBand - 1] = closest;
+                    updateTrackbars();
+                }
+                else textBox15.Text = qValues[currentChannel - 1][currentBand - 1].ToString();
+            }
+            else if (e.KeyCode == Keys.Left) macTrackBar2.Value--;
+            else if (e.KeyCode == Keys.Right) macTrackBar2.Value++;
+        }
+
+        private void textBox15_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (notEnter)
+            {
+                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.')) e.Handled = true;      //if user presses letters or symbols
+                else if (e.KeyChar == '\r') textBox15.Text = textBox15.Text.Substring(0, textBox15.Text.Length - 1);
+                else if (e.KeyChar == '.')
+                {
+                    if (textBox15.Text.Any(ch => ch == '.')) e.Handled = true;    //if there's already a point
+                }
+            }
+            notEnter = true;
+        }
+
+        private void textBox16_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                notEnter = false;
+                if (textBox16.Text != "" && textBox16.Text != ".")
+                {
+                    double closest = findClosestValue(Convert.ToDouble(textBox16.Text), 'q');
+                    textBox16.Text = closest.ToString();
+                    qValues[currentChannel - 1][currentBand - 1] = closest;
+                    updateTrackbars();
+                }
+                else textBox16.Text = qValues[currentChannel - 1][currentBand - 1].ToString();
+            }
+            else if (e.KeyCode == Keys.Left) macTrackBar2.Value--;
+            else if (e.KeyCode == Keys.Right) macTrackBar2.Value++;
+        }
+
+        private void textBox16_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (notEnter)
+            {
+                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.')) e.Handled = true;      //if user presses letters or symbols
+                else if (e.KeyChar == '\r') textBox16.Text = textBox16.Text.Substring(0, textBox16.Text.Length - 1);
+                else if (e.KeyChar == '.')
+                {
+                    if (textBox16.Text.Any(ch => ch == '.')) e.Handled = true;    //if there's already a point
+                }
+            }
+            notEnter = true;
+        }
+
+        private void textBox17_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                notEnter = false;
+                if (textBox17.Text != "" && textBox17.Text != ".")
+                {
+                    double closest = findClosestValue(Convert.ToDouble(textBox17.Text), 'q');
+                    textBox17.Text = closest.ToString();
+                    qValues[currentChannel - 1][currentBand - 1] = closest;
+                    updateTrackbars();
+                }
+                else textBox17.Text = qValues[currentChannel - 1][currentBand - 1].ToString();
+            }
+            else if (e.KeyCode == Keys.Left) macTrackBar2.Value--;
+            else if (e.KeyCode == Keys.Right) macTrackBar2.Value++;
+        }
+
+        private void textBox17_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (notEnter)
+            {
+                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.')) e.Handled = true;      //if user presses letters or symbols
+                else if (e.KeyChar == '\r') textBox17.Text = textBox17.Text.Substring(0, textBox17.Text.Length - 1);
+                else if (e.KeyChar == '.')
+                {
+                    if (textBox17.Text.Any(ch => ch == '.')) e.Handled = true;    //if there's already a point
+                }
+            }
+            notEnter = true;
+        }
+
+        private void textBox18_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                notEnter = false;
+                if (textBox18.Text != "" && textBox18.Text != ".")
+                {
+                    double closest = findClosestValue(Convert.ToDouble(textBox18.Text), 'q');
+                    textBox18.Text = closest.ToString();
+                    qValues[currentChannel - 1][currentBand - 1] = closest;
+                    updateTrackbars();
+                }
+                else textBox18.Text = qValues[currentChannel - 1][currentBand - 1].ToString();
+            }
+            else if (e.KeyCode == Keys.Left) macTrackBar2.Value--;
+            else if (e.KeyCode == Keys.Right) macTrackBar2.Value++;
+        }
+
+        private void textBox18_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (notEnter)
+            {
+                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.')) e.Handled = true;      //if user presses letters or symbols
+                else if (e.KeyChar == '\r') textBox18.Text = textBox18.Text.Substring(0, textBox18.Text.Length - 1);
+                else if (e.KeyChar == '.')
+                {
+                    if (textBox18.Text.Any(ch => ch == '.')) e.Handled = true;    //if there's already a point
+                }
+            }
+            notEnter = true;
+        }
+
+        private void textBox19_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                notEnter = false;
+                if (textBox19.Text != "" && textBox19.Text != ".")
+                {
+                    double closest = findClosestValue(Convert.ToDouble(textBox19.Text), 'q');
+                    textBox19.Text = closest.ToString();
+                    qValues[currentChannel - 1][currentBand - 1] = closest;
+                    updateTrackbars();
+                }
+                else textBox19.Text = qValues[currentChannel - 1][currentBand - 1].ToString();
+            }
+            else if (e.KeyCode == Keys.Left) macTrackBar2.Value--;
+            else if (e.KeyCode == Keys.Right) macTrackBar2.Value++;
+        }
+
+        private void textBox19_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (notEnter)
+            {
+                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.')) e.Handled = true;      //if user presses letters or symbols
+                else if (e.KeyChar == '\r') textBox19.Text = textBox19.Text.Substring(0, textBox19.Text.Length - 1);
+                else if (e.KeyChar == '.')
+                {
+                    if (textBox19.Text.Any(ch => ch == '.')) e.Handled = true;    //if there's already a point
+                }
+            }
+            notEnter = true;
+        }
+
+        private void textBox20_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                notEnter = false;
+                if (textBox20.Text != "" && textBox20.Text != ".")
+                {
+                    double closest = findClosestValue(Convert.ToDouble(textBox20.Text), 'q');
+                    textBox20.Text = closest.ToString();
+                    qValues[currentChannel - 1][currentBand - 1] = closest;
+                    updateTrackbars();
+                }
+                else textBox20.Text = qValues[currentChannel - 1][currentBand - 1].ToString();
+            }
+            else if (e.KeyCode == Keys.Left) macTrackBar2.Value--;
+            else if (e.KeyCode == Keys.Right) macTrackBar2.Value++;
+        }
+
+        private void textBox20_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (notEnter)
+            {
+                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.')) e.Handled = true;      //if user presses letters or symbols
+                else if (e.KeyChar == '\r') textBox20.Text = textBox20.Text.Substring(0, textBox20.Text.Length - 1);
+                else if (e.KeyChar == '.')
+                {
+                    if (textBox20.Text.Any(ch => ch == '.')) e.Handled = true;    //if there's already a point
+                }
+            }
+            notEnter = true;
+        }
+
+        private void textBox21_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                notEnter = false;
+                if (textBox21.Text != "" && textBox21.Text != ".")
+                {
+                    double closest = findClosestValue(Convert.ToDouble(textBox21.Text), 'q');
+                    textBox21.Text = closest.ToString();
+                    qValues[currentChannel - 1][currentBand - 1] = closest;
+                    updateTrackbars();
+                }
+                else textBox21.Text = qValues[currentChannel - 1][currentBand - 1].ToString();
+            }
+            else if (e.KeyCode == Keys.Left) macTrackBar2.Value--;
+            else if (e.KeyCode == Keys.Right) macTrackBar2.Value++;
+        }
+
+        private void textBox21_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (notEnter)
+            {
+                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.')) e.Handled = true;      //if user presses letters or symbols
+                else if (e.KeyChar == '\r') textBox21.Text = textBox21.Text.Substring(0, textBox21.Text.Length - 1);
+                else if (e.KeyChar == '.')
+                {
+                    if (textBox21.Text.Any(ch => ch == '.')) e.Handled = true;    //if there's already a point
+                }
+            }
+            notEnter = true;
+        }
+
+        private void textBox22_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                notEnter = false;
+                if (textBox22.Text != "" && textBox22.Text != ".")
+                {
+                    double closest = findClosestValue(Convert.ToDouble(textBox22.Text), 'q');
+                    textBox22.Text = closest.ToString();
+                    qValues[currentChannel - 1][currentBand - 1] = closest;
+                    updateTrackbars();
+                }
+                else textBox22.Text = qValues[currentChannel - 1][currentBand - 1].ToString();
+            }
+            else if (e.KeyCode == Keys.Left) macTrackBar2.Value--;
+            else if (e.KeyCode == Keys.Right) macTrackBar2.Value++;
+        }
+
+        private void textBox22_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (notEnter)
+            {
+                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.')) e.Handled = true;      //if user presses letters or symbols
+                else if (e.KeyChar == '\r') textBox22.Text = textBox22.Text.Substring(0, textBox22.Text.Length - 1);
+                else if (e.KeyChar == '.')
+                {
+                    if (textBox22.Text.Any(ch => ch == '.')) e.Handled = true;    //if there's already a point
+                }
+            }
+            notEnter = true;
+        }
+
+        private void textBox23_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                notEnter = false;
+                if (textBox23.Text != "" && textBox23.Text != ".")
+                {
+                    double closest = findClosestValue(Convert.ToDouble(textBox23.Text), 'q');
+                    textBox23.Text = closest.ToString();
+                    qValues[currentChannel - 1][currentBand - 1] = closest;
+                    updateTrackbars();
+                }
+                else textBox23.Text = qValues[currentChannel - 1][currentBand - 1].ToString();
+            }
+            else if (e.KeyCode == Keys.Left) macTrackBar2.Value--;
+            else if (e.KeyCode == Keys.Right) macTrackBar2.Value++;
+        }
+
+        private void textBox23_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (notEnter)
+            {
+                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.')) e.Handled = true;      //if user presses letters or symbols
+                else if (e.KeyChar == '\r') textBox23.Text = textBox23.Text.Substring(0, textBox23.Text.Length - 1);
+                else if (e.KeyChar == '.')
+                {
+                    if (textBox23.Text.Any(ch => ch == '.')) e.Handled = true;    //if there's already a point
+                }
+            }
+            notEnter = true;
+        }
+
+        private void textBox24_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                notEnter = false;
+                if (textBox24.Text != "" && textBox24.Text != ".")
+                {
+                    double closest = findClosestValue(Convert.ToDouble(textBox24.Text), 'q');
+                    textBox24.Text = closest.ToString();
+                    qValues[currentChannel - 1][currentBand - 1] = closest;
+                    updateTrackbars();
+                }
+                else textBox24.Text = qValues[currentChannel - 1][currentBand - 1].ToString();
+            }
+            else if (e.KeyCode == Keys.Left) macTrackBar2.Value--;
+            else if (e.KeyCode == Keys.Right) macTrackBar2.Value++;
+        }
+
+        private void textBox24_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (notEnter)
+            {
+                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.')) e.Handled = true;      //if user presses letters or symbols
+                else if (e.KeyChar == '\r') textBox24.Text = textBox24.Text.Substring(0, textBox24.Text.Length - 1);
+                else if (e.KeyChar == '.')
+                {
+                    if (textBox24.Text.Any(ch => ch == '.')) e.Handled = true;    //if there's already a point
+                }
+            }
+            notEnter = true;
+        }
+
+        private void textBox25_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                notEnter = false;
+                if (textBox25.Text != "" && textBox25.Text != "." && textBox25.Text != "-")
+                {
+                    double closest = findClosestValue(Convert.ToDouble(textBox25.Text), 'g');
+                    textBox25.Text = closest.ToString();
+                    gainValues[currentChannel - 1][currentBand - 1] = closest;
+                    updateTrackbars();
+                }
+                else textBox25.Text = gainValues[currentChannel - 1][currentBand - 1].ToString();
+            }
+            else if (e.KeyCode == Keys.Left) macTrackBar3.Value--;
+            else if (e.KeyCode == Keys.Right) macTrackBar3.Value++;
+        }
+
+        private void textBox25_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (notEnter)
+            {
+                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.') && (e.KeyChar != '-')) e.Handled = true;      //if user presses letters or symbols
+                else if (e.KeyChar == '\r') textBox25.Text = textBox25.Text.Substring(0, textBox25.Text.Length - 1);
+                else if (e.KeyChar == '.')
+                {
+                    if (textBox25.Text.Any(ch => ch == '.')) e.Handled = true;    //if there's already a point
+                }
+                else if (e.KeyChar == '-')
+                {
+                    if (textBox25.Text.Any(ch => ch == '-') || (textBox25.Text != "")) e.Handled = true;    //if there's already a line or string isn't empty
+                }
+            }
+            notEnter = true;
+        }
+
+        private void textBox26_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                notEnter = false;
+                if (textBox26.Text != "" && textBox26.Text != "." && textBox26.Text != "-")
+                {
+                    double closest = findClosestValue(Convert.ToDouble(textBox26.Text), 'g');
+                    textBox26.Text = closest.ToString();
+                    gainValues[currentChannel - 1][currentBand - 1] = closest;
+                    updateTrackbars();
+                }
+                else textBox26.Text = gainValues[currentChannel - 1][currentBand - 1].ToString();
+            }
+            else if (e.KeyCode == Keys.Left) macTrackBar3.Value--;
+            else if (e.KeyCode == Keys.Right) macTrackBar3.Value++;
+        }
+
+        private void textBox26_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (notEnter)
+            {
+                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.') && (e.KeyChar != '-')) e.Handled = true;      //if user presses letters or symbols
+                else if (e.KeyChar == '\r') textBox26.Text = textBox26.Text.Substring(0, textBox26.Text.Length - 1);
+                else if (e.KeyChar == '.')
+                {
+                    if (textBox26.Text.Any(ch => ch == '.')) e.Handled = true;    //if there's already a point
+                }
+                else if (e.KeyChar == '-')
+                {
+                    if (textBox26.Text.Any(ch => ch == '-') || (textBox26.Text != "")) e.Handled = true;    //if there's already a line or string isn't empty
+                }
+            }
+            notEnter = true;
+        }
+
+        private void textBox27_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                notEnter = false;
+                if (textBox27.Text != "" && textBox27.Text != "." && textBox27.Text != "-")
+                {
+                    double closest = findClosestValue(Convert.ToDouble(textBox27.Text), 'g');
+                    textBox27.Text = closest.ToString();
+                    gainValues[currentChannel - 1][currentBand - 1] = closest;
+                    updateTrackbars();
+                }
+                else textBox27.Text = gainValues[currentChannel - 1][currentBand - 1].ToString();
+            }
+            else if (e.KeyCode == Keys.Left) macTrackBar3.Value--;
+            else if (e.KeyCode == Keys.Right) macTrackBar3.Value++;
+        }
+
+        private void textBox27_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (notEnter)
+            {
+                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.') && (e.KeyChar != '-')) e.Handled = true;      //if user presses letters or symbols
+                else if (e.KeyChar == '\r') textBox27.Text = textBox27.Text.Substring(0, textBox27.Text.Length - 1);
+                else if (e.KeyChar == '.')
+                {
+                    if (textBox27.Text.Any(ch => ch == '.')) e.Handled = true;    //if there's already a point
+                }
+                else if (e.KeyChar == '-')
+                {
+                    if (textBox27.Text.Any(ch => ch == '-') || (textBox27.Text != "")) e.Handled = true;    //if there's already a line or string isn't empty
+                }
+            }
+            notEnter = true;
+        }
+
+        private void textBox28_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                notEnter = false;
+                if (textBox28.Text != "" && textBox28.Text != "." && textBox28.Text != "-")
+                {
+                    double closest = findClosestValue(Convert.ToDouble(textBox28.Text), 'g');
+                    textBox28.Text = closest.ToString();
+                    gainValues[currentChannel - 1][currentBand - 1] = closest;
+                    updateTrackbars();
+                }
+                else textBox28.Text = gainValues[currentChannel - 1][currentBand - 1].ToString();
+            }
+            else if (e.KeyCode == Keys.Left) macTrackBar3.Value--;
+            else if (e.KeyCode == Keys.Right) macTrackBar3.Value++;
+        }
+
+        private void textBox28_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (notEnter)
+            {
+                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.') && (e.KeyChar != '-')) e.Handled = true;      //if user presses letters or symbols
+                else if (e.KeyChar == '\r') textBox28.Text = textBox28.Text.Substring(0, textBox28.Text.Length - 1);
+                else if (e.KeyChar == '.')
+                {
+                    if (textBox28.Text.Any(ch => ch == '.')) e.Handled = true;    //if there's already a point
+                }
+                else if (e.KeyChar == '-')
+                {
+                    if (textBox28.Text.Any(ch => ch == '-') || (textBox28.Text != "")) e.Handled = true;    //if there's already a line or string isn't empty
+                }
+            }
+            notEnter = true;
+        }
+
+        private void textBox29_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                notEnter = false;
+                if (textBox29.Text != "" && textBox29.Text != "." && textBox29.Text != "-")
+                {
+                    double closest = findClosestValue(Convert.ToDouble(textBox29.Text), 'g');
+                    textBox29.Text = closest.ToString();
+                    gainValues[currentChannel - 1][currentBand - 1] = closest;
+                    updateTrackbars();
+                }
+                else textBox29.Text = gainValues[currentChannel - 1][currentBand - 1].ToString();
+            }
+            else if (e.KeyCode == Keys.Left) macTrackBar3.Value--;
+            else if (e.KeyCode == Keys.Right) macTrackBar3.Value++;
+        }
+
+        private void textBox29_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (notEnter)
+            {
+                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.') && (e.KeyChar != '-')) e.Handled = true;      //if user presses letters or symbols
+                else if (e.KeyChar == '\r') textBox29.Text = textBox29.Text.Substring(0, textBox29.Text.Length - 1);
+                else if (e.KeyChar == '.')
+                {
+                    if (textBox29.Text.Any(ch => ch == '.')) e.Handled = true;    //if there's already a point
+                }
+                else if (e.KeyChar == '-')
+                {
+                    if (textBox29.Text.Any(ch => ch == '-') || (textBox29.Text != "")) e.Handled = true;    //if there's already a line or string isn't empty
+                }
+            }
+            notEnter = true;
+        }
+
+        private void textBox30_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                notEnter = false;
+                if (textBox30.Text != "" && textBox30.Text != "." && textBox30.Text != "-")
+                {
+                    double closest = findClosestValue(Convert.ToDouble(textBox30.Text), 'g');
+                    textBox30.Text = closest.ToString();
+                    gainValues[currentChannel - 1][currentBand - 1] = closest;
+                    updateTrackbars();
+                }
+                else textBox30.Text = gainValues[currentChannel - 1][currentBand - 1].ToString();
+            }
+            else if (e.KeyCode == Keys.Left) macTrackBar3.Value--;
+            else if (e.KeyCode == Keys.Right) macTrackBar3.Value++;
+        }
+
+        private void textBox30_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (notEnter)
+            {
+                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.') && (e.KeyChar != '-')) e.Handled = true;      //if user presses letters or symbols
+                else if (e.KeyChar == '\r') textBox30.Text = textBox30.Text.Substring(0, textBox30.Text.Length - 1);
+                else if (e.KeyChar == '.')
+                {
+                    if (textBox30.Text.Any(ch => ch == '.')) e.Handled = true;    //if there's already a point
+                }
+                else if (e.KeyChar == '-')
+                {
+                    if (textBox30.Text.Any(ch => ch == '-') || (textBox30.Text != "")) e.Handled = true;    //if there's already a line or string isn't empty
+                }
+            }
+            notEnter = true;
+        }
+
+        private void textBox31_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                notEnter = false;
+                if (textBox31.Text != "" && textBox31.Text != "." && textBox31.Text != "-")
+                {
+                    double closest = findClosestValue(Convert.ToDouble(textBox31.Text), 'g');
+                    textBox31.Text = closest.ToString();
+                    gainValues[currentChannel - 1][currentBand - 1] = closest;
+                    updateTrackbars();
+                }
+                else textBox31.Text = gainValues[currentChannel - 1][currentBand - 1].ToString();
+            }
+            else if (e.KeyCode == Keys.Left) macTrackBar3.Value--;
+            else if (e.KeyCode == Keys.Right) macTrackBar3.Value++;
+        }
+
+        private void textBox31_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (notEnter)
+            {
+                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.') && (e.KeyChar != '-')) e.Handled = true;      //if user presses letters or symbols
+                else if (e.KeyChar == '\r') textBox31.Text = textBox31.Text.Substring(0, textBox31.Text.Length - 1);
+                else if (e.KeyChar == '.')
+                {
+                    if (textBox31.Text.Any(ch => ch == '.')) e.Handled = true;    //if there's already a point
+                }
+                else if (e.KeyChar == '-')
+                {
+                    if (textBox31.Text.Any(ch => ch == '-') || (textBox31.Text != "")) e.Handled = true;    //if there's already a line or string isn't empty
+                }
+            }
+            notEnter = true;
+        }
+
+        private void textBox32_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                notEnter = false;
+                if (textBox32.Text != "" && textBox32.Text != "." && textBox32.Text != "-")
+                {
+                    double closest = findClosestValue(Convert.ToDouble(textBox32.Text), 'g');
+                    textBox32.Text = closest.ToString();
+                    gainValues[currentChannel - 1][currentBand - 1] = closest;
+                    updateTrackbars();
+                }
+                else textBox32.Text = gainValues[currentChannel - 1][currentBand - 1].ToString();
+            }
+            else if (e.KeyCode == Keys.Left) macTrackBar3.Value--;
+            else if (e.KeyCode == Keys.Right) macTrackBar3.Value++;
+        }
+
+        private void textBox32_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (notEnter)
+            {
+                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.') && (e.KeyChar != '-')) e.Handled = true;      //if user presses letters or symbols
+                else if (e.KeyChar == '\r') textBox32.Text = textBox32.Text.Substring(0, textBox32.Text.Length - 1);
+                else if (e.KeyChar == '.')
+                {
+                    if (textBox32.Text.Any(ch => ch == '.')) e.Handled = true;    //if there's already a point
+                }
+                else if (e.KeyChar == '-')
+                {
+                    if (textBox32.Text.Any(ch => ch == '-') || (textBox32.Text != "")) e.Handled = true;    //if there's already a line or string isn't empty
+                }
+            }
+            notEnter = true;
+        }
+
+        private void textBox33_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                notEnter = false;
+                if (textBox33.Text != "" && textBox33.Text != "." && textBox33.Text != "-")
+                {
+                    double closest = findClosestValue(Convert.ToDouble(textBox33.Text), 'g');
+                    textBox33.Text = closest.ToString();
+                    gainValues[currentChannel - 1][currentBand - 1] = closest;
+                    updateTrackbars();
+                }
+                else textBox33.Text = gainValues[currentChannel - 1][currentBand - 1].ToString();
+            }
+            else if (e.KeyCode == Keys.Left) macTrackBar3.Value--;
+            else if (e.KeyCode == Keys.Right) macTrackBar3.Value++;
+        }
+
+        private void textBox33_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (notEnter)
+            {
+                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.') && (e.KeyChar != '-')) e.Handled = true;      //if user presses letters or symbols
+                else if (e.KeyChar == '\r') textBox33.Text = textBox33.Text.Substring(0, textBox33.Text.Length - 1);
+                else if (e.KeyChar == '.')
+                {
+                    if (textBox33.Text.Any(ch => ch == '.')) e.Handled = true;    //if there's already a point
+                }
+                else if (e.KeyChar == '-')
+                {
+                    if (textBox33.Text.Any(ch => ch == '-') || (textBox33.Text != "")) e.Handled = true;    //if there's already a line or string isn't empty
+                }
+            }
+            notEnter = true;
+        }
+
+        private void textBox34_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                notEnter = false;
+                if (textBox34.Text != "" && textBox34.Text != "." && textBox34.Text != "-")
+                {
+                    double closest = findClosestValue(Convert.ToDouble(textBox34.Text), 'g');
+                    textBox34.Text = closest.ToString();
+                    gainValues[currentChannel - 1][currentBand - 1] = closest;
+                    updateTrackbars();
+                }
+                else textBox34.Text = gainValues[currentChannel - 1][currentBand - 1].ToString();
+            }
+            else if (e.KeyCode == Keys.Left) macTrackBar3.Value--;
+            else if (e.KeyCode == Keys.Right) macTrackBar3.Value++;
+        }
+
+        private void textBox34_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (notEnter)
+            {
+                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.') && (e.KeyChar != '-')) e.Handled = true;      //if user presses letters or symbols
+                else if (e.KeyChar == '\r') textBox34.Text = textBox34.Text.Substring(0, textBox34.Text.Length - 1);
+                else if (e.KeyChar == '.')
+                {
+                    if (textBox34.Text.Any(ch => ch == '.')) e.Handled = true;    //if there's already a point
+                }
+                else if (e.KeyChar == '-')
+                {
+                    if (textBox34.Text.Any(ch => ch == '-') || (textBox34.Text != "")) e.Handled = true;    //if there's already a line or string isn't empty
+                }
+            }
+            notEnter = true;
+        }
+
+        private void textBox35_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                notEnter = false;
+                if (textBox35.Text != "" && textBox35.Text != "." && textBox35.Text != "-")
+                {
+                    double closest = findClosestValue(Convert.ToDouble(textBox35.Text), 'g');
+                    textBox35.Text = closest.ToString();
+                    gainValues[currentChannel - 1][currentBand - 1] = closest;
+                    updateTrackbars();
+                }
+                else textBox35.Text = gainValues[currentChannel - 1][currentBand - 1].ToString();
+            }
+            else if (e.KeyCode == Keys.Left) macTrackBar3.Value--;
+            else if (e.KeyCode == Keys.Right) macTrackBar3.Value++;
+        }
+
+        private void textBox35_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (notEnter)
+            {
+                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.') && (e.KeyChar != '-')) e.Handled = true;      //if user presses letters or symbols
+                else if (e.KeyChar == '\r') textBox35.Text = textBox35.Text.Substring(0, textBox35.Text.Length - 1);
+                else if (e.KeyChar == '.')
+                {
+                    if (textBox35.Text.Any(ch => ch == '.')) e.Handled = true;    //if there's already a point
+                }
+                else if (e.KeyChar == '-')
+                {
+                    if (textBox35.Text.Any(ch => ch == '-') || (textBox35.Text != "")) e.Handled = true;    //if there's already a line or string isn't empty
+                }
+            }
+            notEnter = true;
+        }
+
+        private void textBox36_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                notEnter = false;
+                if (textBox36.Text != "" && textBox36.Text != "." && textBox36.Text != "-")
+                {
+                    double closest = findClosestValue(Convert.ToDouble(textBox36.Text), 'g');
+                    textBox36.Text = closest.ToString();
+                    gainValues[currentChannel - 1][currentBand - 1] = closest;
+                    updateTrackbars();
+                }
+                else textBox36.Text = gainValues[currentChannel - 1][currentBand - 1].ToString();
+            }
+            else if (e.KeyCode == Keys.Left) macTrackBar3.Value--;
+            else if (e.KeyCode == Keys.Right) macTrackBar3.Value++;
+        }
+
+        private void textBox36_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (notEnter)
+            {
+                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.') && (e.KeyChar != '-')) e.Handled = true;      //if user presses letters or symbols
+                else if (e.KeyChar == '\r') textBox36.Text = textBox36.Text.Substring(0, textBox36.Text.Length - 1);
+                else if (e.KeyChar == '.')
+                {
+                    if (textBox36.Text.Any(ch => ch == '.')) e.Handled = true;    //if there's already a point
+                }
+                else if (e.KeyChar == '-')
+                {
+                    if (textBox36.Text.Any(ch => ch == '-') || (textBox36.Text != "")) e.Handled = true;    //if there's already a line or string isn't empty
+                }
+            }
+            notEnter = true;
+        }
+
+        private void textBox38_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                notEnter = false;
+                if (textBox38.Text != "" && textBox38.Text != "." && textBox38.Text != "-")
+                {
+                    double closest = findClosestValue(Convert.ToDouble(textBox38.Text), 'v');
+                    textBox38.Text = closest.ToString();
+                    volValues[currentChannel - 1] = closest;
+                    updateTrackbars();
+                }
+                else textBox38.Text = volValues[currentChannel - 1].ToString();
+            }
+            else if (e.KeyCode == Keys.Left) macTrackBar4.Value--;
+            else if (e.KeyCode == Keys.Right) macTrackBar4.Value++;
+        }
+
+        private void textBox38_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (notEnter)
+            {
+                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.') && (e.KeyChar != '-')) e.Handled = true;      //if user presses letters or symbols
+                else if (e.KeyChar == '\r') textBox38.Text = textBox38.Text.Substring(0, textBox38.Text.Length - 1);
+                else if (e.KeyChar == '.')
+                {
+                    if (textBox38.Text.Any(ch => ch == '.')) e.Handled = true;    //if there's already a point
+                }
+                else if (e.KeyChar == '-')
+                {
+                    if (textBox38.Text.Any(ch => ch == '-') || (textBox38.Text != "")) e.Handled = true;    //if there's already a line or string isn't empty
+                }
+            }
+            notEnter = true;
+        }
+
+        private void textBox39_KeyDown(object sender, KeyEventArgs e)
+        {
+
+            if (e.KeyCode == Keys.Enter)
+            {
+                notEnter = false;
+                if (textBox39.Text != "" && textBox39.Text != "." )
+                {
+                    double closest = findClosestValue(Convert.ToDouble(textBox39.Text), 'd');
+                    textBox39.Text = closest.ToString();
+                    delayValues[currentChannel - 1] = closest;
+                }
+                else textBox39.Text = delayValues[currentChannel - 1].ToString();
+            }
+            else if (e.KeyCode == Keys.Left)
+            {
+                int index = Array.IndexOf(centralDelay, Convert.ToDouble(textBox39.Text)) - 1;
+                if (index >= 0)
+                {
+                    delayValues[currentChannel - 1] = centralDelay[index];
+                    textBox39.Text = centralDelay[index].ToString();
+                }
+            }
+            else if (e.KeyCode == Keys.Right)
+            {
+                int index = Array.IndexOf(centralDelay, Convert.ToDouble(textBox39.Text)) + 1;
+                if (index < centralDelay.Length)
+                {
+                    delayValues[currentChannel - 1] = centralDelay[index];
+                    textBox39.Text = centralDelay[index].ToString();
+                }
+            }
+        }
+
+        private void textBox39_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (notEnter)
+            {
+                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.')) e.Handled = true;      //if user presses letters or symbols
+                else if (e.KeyChar == '\r') textBox39.Text = textBox39.Text.Substring(0, textBox39.Text.Length - 1);
+                else if (e.KeyChar == '.')
+                {
+                    if (textBox39.Text.Any(ch => ch == '.')) e.Handled = true;    //if there's already a point
+                }
+            }
+            notEnter = true;
         }
     }
 }
