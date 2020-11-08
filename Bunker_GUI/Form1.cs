@@ -7,6 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using LiveCharts;
+using LiveCharts.Defaults;
+using LiveCharts.Wpf;
+using LiveCharts.Configurations;
+using LiveCharts.Helpers;
 
 namespace Bunker_GUI
 {
@@ -22,6 +27,106 @@ namespace Bunker_GUI
         private int phase = 1;
         //INFORMATION STORING
         private double[] plotFrequencies = generateKeyFrequencies();
+        private ChartValues<ObservablePoint>[][] channelValues = new ChartValues<ObservablePoint>[3][]
+        {
+            new ChartValues<ObservablePoint>[13]
+            {
+                new ChartValues<ObservablePoint>(),
+                new ChartValues<ObservablePoint>(),
+                new ChartValues<ObservablePoint>(),
+                new ChartValues<ObservablePoint>(),
+                new ChartValues<ObservablePoint>(),
+                new ChartValues<ObservablePoint>(),
+                new ChartValues<ObservablePoint>(),
+                new ChartValues<ObservablePoint>(),
+                new ChartValues<ObservablePoint>(),
+                new ChartValues<ObservablePoint>(),
+                new ChartValues<ObservablePoint>(),
+                new ChartValues<ObservablePoint>(),
+                new ChartValues<ObservablePoint>()
+            },
+            new ChartValues<ObservablePoint>[13]
+            {
+                new ChartValues<ObservablePoint>(),
+                new ChartValues<ObservablePoint>(),
+                new ChartValues<ObservablePoint>(),
+                new ChartValues<ObservablePoint>(),
+                new ChartValues<ObservablePoint>(),
+                new ChartValues<ObservablePoint>(),
+                new ChartValues<ObservablePoint>(),
+                new ChartValues<ObservablePoint>(),
+                new ChartValues<ObservablePoint>(),
+                new ChartValues<ObservablePoint>(),
+                new ChartValues<ObservablePoint>(),
+                new ChartValues<ObservablePoint>(),
+                new ChartValues<ObservablePoint>()
+            },
+            new ChartValues<ObservablePoint>[13]
+            {
+                new ChartValues<ObservablePoint>(),
+                new ChartValues<ObservablePoint>(),
+                new ChartValues<ObservablePoint>(),
+                new ChartValues<ObservablePoint>(),
+                new ChartValues<ObservablePoint>(),
+                new ChartValues<ObservablePoint>(),
+                new ChartValues<ObservablePoint>(),
+                new ChartValues<ObservablePoint>(),
+                new ChartValues<ObservablePoint>(),
+                new ChartValues<ObservablePoint>(),
+                new ChartValues<ObservablePoint>(),
+                new ChartValues<ObservablePoint>(),
+                new ChartValues<ObservablePoint>()
+            }
+        };
+        private double[][][] magnitudeValues = new double[3][][]
+        {
+            new double[][]
+            {
+                new double[809],
+                new double[809],
+                new double[809],
+                new double[809],
+                new double[809],
+                new double[809],
+                new double[809],
+                new double[809],
+                new double[809],
+                new double[809],
+                new double[809],
+                new double[809]
+            },
+            new double[][]
+            {
+                new double[809],
+                new double[809],
+                new double[809],
+                new double[809],
+                new double[809],
+                new double[809],
+                new double[809],
+                new double[809],
+                new double[809],
+                new double[809],
+                new double[809],
+                new double[809]
+            },
+            new double[][]
+            {
+                new double[809],
+                new double[809],
+                new double[809],
+                new double[809],
+                new double[809],
+                new double[809],
+                new double[809],
+                new double[809],
+                new double[809],
+                new double[809],
+                new double[809],
+                new double[809]
+            }
+        };
+        private ObservablePoint[] channelPoints = new ObservablePoint[809];
         private double[][] freqValues = new double[3][] 
         {
             new double[12],
@@ -86,6 +191,7 @@ namespace Bunker_GUI
             this.MinimumSize = new Size(1450, 800);
             this.Size = this.MinimumSize;
             initializeValues();
+            chartConfig();
             initializeWidgets();
             updateWidgetsSize();
             updateWidgetsPosition();
@@ -108,10 +214,20 @@ namespace Bunker_GUI
                 freqValues[i][10] = 6990.0;
                 freqValues[i][11] = 12500.0;
                 volValues[i] = 0.00;
+                delayValues[i] = 0.00;
+
                 for (int j = 0; j < 12; j++)
                 {
                     qValues[i][j] = 4.00;
                     gainValues[i][j] = 0.00;
+
+                    for (int k = 0; k < plotFrequencies.Length; k++)
+                    {
+                        ObservablePoint point = new ObservablePoint(plotFrequencies[k], 0);
+                        channelPoints[k] = point;
+                        magnitudeValues[i][j][k] = 0;
+                    }
+                    channelValues[i][j].AddRange(channelPoints);
                 }
             }
         }
@@ -627,6 +743,148 @@ namespace Bunker_GUI
             }
             return delay;
         }
+        
+        private void chartConfig()
+        {
+            var mapper = Mappers.Xy<ObservablePoint>()
+                .X(point => Math.Log10(point.X))
+                .Y(point => point.Y);
+
+            cartesianChart1.Series = new SeriesCollection(mapper)
+            {
+                new LineSeries     //BAND1
+                {
+                    Values = channelValues[currentChannel - 1][0],
+                    Stroke = System.Windows.Media.Brushes.Red,
+                    Fill = System.Windows.Media.Brushes.Transparent,
+                    DataLabels = false,
+                    PointGeometry = null
+                },
+                new LineSeries    //BAND2
+                {
+                    Values = channelValues[currentChannel - 1][1],
+                    Stroke = System.Windows.Media.Brushes.Blue,
+                    Fill = System.Windows.Media.Brushes.Transparent,
+                    DataLabels = false,
+                    PointGeometry = null
+                },
+                new LineSeries     //BAND3
+                {
+                    Values = channelValues[currentChannel - 1][2],
+                    Stroke = System.Windows.Media.Brushes.Yellow,
+                    Fill = System.Windows.Media.Brushes.Transparent,
+                    DataLabels = false,
+                    PointGeometry = null
+                },
+                new LineSeries     //BAND4
+                {
+                    Values = channelValues[currentChannel - 1][3],
+                    Stroke = System.Windows.Media.Brushes.Green,
+                    Fill = System.Windows.Media.Brushes.Transparent,
+                    DataLabels = false,
+                    PointGeometry = null
+                },
+                new LineSeries     //BAND5
+                {
+                    Values = channelValues[currentChannel - 1][4],
+                    Stroke = System.Windows.Media.Brushes.Orange,
+                    Fill = System.Windows.Media.Brushes.Transparent,
+                    DataLabels = false,
+                    PointGeometry = null
+                },
+                new LineSeries      //BAND6
+                {
+                    Values = channelValues[currentChannel - 1][5],
+                    Stroke = System.Windows.Media.Brushes.Brown,
+                    Fill = System.Windows.Media.Brushes.Transparent,
+                    DataLabels = false,
+                    PointGeometry = null
+                },
+                new LineSeries      //BAND7
+                {
+                    Values = channelValues[currentChannel - 1][6],
+                    Stroke = System.Windows.Media.Brushes.Pink,
+                    Fill = System.Windows.Media.Brushes.Transparent,
+                    DataLabels = false,
+                    PointGeometry = null
+                },
+                new LineSeries      //BAND8
+                {
+                    Values = channelValues[currentChannel - 1][7],
+                    Stroke = System.Windows.Media.Brushes.Purple,
+                    Fill = System.Windows.Media.Brushes.Transparent,
+                    DataLabels = false,
+                    PointGeometry = null
+                },
+                new LineSeries      //BAND9
+                {
+                    Values = channelValues[currentChannel - 1][8],
+                    Stroke = System.Windows.Media.Brushes.CornflowerBlue,
+                    Fill = System.Windows.Media.Brushes.Transparent,
+                    DataLabels = false,
+                    PointGeometry = null
+                },
+                new LineSeries      //BAND10
+                {
+                    Values = channelValues[currentChannel - 1][9],
+                    Stroke = System.Windows.Media.Brushes.DarkGreen,
+                    Fill = System.Windows.Media.Brushes.Transparent,
+                    DataLabels = false,
+                    PointGeometry = null
+                },
+                new LineSeries      //BAND11
+                {
+                    Values = channelValues[currentChannel - 1][10],
+                    Stroke = System.Windows.Media.Brushes.Crimson,
+                    Fill = System.Windows.Media.Brushes.Transparent,
+                    DataLabels = false,
+                    PointGeometry = null
+                },
+                new LineSeries      //BAND12
+                {
+                    Values = channelValues[currentChannel - 1][11],
+                    Stroke = System.Windows.Media.Brushes.BlanchedAlmond,
+                    Fill = System.Windows.Media.Brushes.Transparent,
+                    DataLabels = false,
+                    PointGeometry = null
+                },
+                new LineSeries      //RESULT
+                {
+                    Values = channelValues[currentChannel - 1][12],
+                    Stroke = System.Windows.Media.Brushes.White,
+                    Fill = System.Windows.Media.Brushes.Transparent,
+                    DataLabels = false,
+                    PointGeometry = null
+                },
+            };
+
+            var xAxis = new LogarithmicAxis()
+            {
+                //MinValue = 0,
+                //MaxValue = Math.Log10(25000),
+                Base = 10,
+                LabelFormatter = value => Math.Pow(10, value).ToString("N"),
+                Separator = new Separator
+                {
+                    Stroke = System.Windows.Media.Brushes.LightGray,
+                    StrokeThickness = 0.5
+                }
+            };
+
+            var yAxis = new Axis()
+            {
+                MinValue = -30,
+                MaxValue = 15,
+                Separator = new Separator
+                {
+                    Stroke = System.Windows.Media.Brushes.LightGray,
+                    StrokeThickness = 0.5
+                }
+            };
+
+            cartesianChart1.AxisX.Add(xAxis);
+            cartesianChart1.AxisY.Add(yAxis);
+        }
         //=======================================================================INITIALIZATION======================================================================================
         
         //==========================================================================UPDATING=========================================================================================
@@ -943,6 +1201,7 @@ namespace Bunker_GUI
                 default:
                     break;
             }
+            generateValues(currentBand);
         }
 
         private void macTrackBar2_ValueChanged(object sender, decimal value)
@@ -991,6 +1250,7 @@ namespace Bunker_GUI
                 default:
                     break;
             }
+            generateValues(currentBand);
         }
 
         private void macTrackBar3_ValueChanged(object sender, decimal value)
@@ -1039,6 +1299,7 @@ namespace Bunker_GUI
                 default:
                     break;
             }
+            generateValues(currentBand);
         }
 
         private void macTrackBar4_ValueChanged(object sender, decimal value)
@@ -2990,6 +3251,111 @@ namespace Bunker_GUI
                 }
             }
             notEnter = true;
+        }
+
+        //=======================================================================WIDGET WRITING======================================================================================
+
+        //======================================================================VALUE CALCULATION====================================================================================
+        private void generateValues(int band)
+        {
+            double Q = qValues[currentChannel - 1][band - 1];
+            double G = gainValues[currentChannel - 1][band - 1];
+            double A = Math.Pow(10, G / 40);
+            double B = Math.Sqrt(A) / Q;
+            double num = 0, den = 0;
+            String type;
+            switch (currentBand)
+            {
+                case 1:
+                    type = comboBox1.Text;
+                    break;
+                case 2:
+                    type = comboBox2.Text;
+                    break;
+                case 3:
+                    type = comboBox3.Text;
+                    break;
+                case 4:
+                    type = comboBox4.Text;
+                    break;
+                case 5:
+                    type = comboBox5.Text;
+                    break;
+                case 6:
+                    type = comboBox6.Text;
+                    break;
+                case 7:
+                    type = comboBox7.Text;
+                    break;
+                case 8:
+                    type = comboBox8.Text;
+                    break;
+                case 9:
+                    type = comboBox9.Text;
+                    break;
+                case 10:
+                    type = comboBox10.Text;
+                    break;
+                case 11:
+                    type = comboBox11.Text;
+                    break;
+                case 12:
+                    type = comboBox12.Text;
+                    break;
+                default:
+                    type = "Parametric";
+                    break;
+            }
+            for (int i = 0; i < plotFrequencies.Length; i++)
+            {
+                double W = plotFrequencies[i] / freqValues[currentChannel - 1][band - 1];
+                switch (type)
+                {
+                    case "Parametric":
+                        num = Math.Sqrt(Math.Pow(Q - Q * Math.Pow(W, 2), 2) + Math.Pow(W * A, 2));
+                        den = Math.Sqrt(Math.Pow(Q - Q * Math.Pow(W, 2), 2) + Math.Pow(W / A, 2));
+                        break;
+                    case "Low Shelf":
+                        num = A * Math.Sqrt(Math.Pow(A - Math.Pow(W, 2), 2) + Math.Pow(B * W, 2));
+                        den = Math.Sqrt(Math.Pow(1 - A * Math.Pow(W, 2), 2) + Math.Pow(B * W, 2));
+                        break;
+                    case "High Shelf":
+                        num = A * Math.Sqrt(Math.Pow(1 - A * Math.Pow(W, 2), 2) + Math.Pow(B * W, 2));
+                        den = Math.Sqrt(Math.Pow(A - Math.Pow(W, 2), 2) + Math.Pow(B * W, 2));
+                        break;
+                }
+                var point = new ObservablePoint(plotFrequencies[i], 20 * Math.Log10(num / den));
+                //magnitudeValues[channel - 1][i] = num / den;
+                channelPoints[i] = point;
+            }
+
+            channelValues[currentChannel - 1][band - 1].Clear();
+            channelValues[currentChannel - 1][band - 1].AddRange(channelPoints);
+            generateResult();
+        }
+
+        private void generateResult()
+        {
+            for (int i = 0; i < plotFrequencies.Length; i++)
+            {
+                double sum = Convert.ToInt32(!checkBox1.Checked) * channelValues[currentChannel - 1][0][i].Y 
+                            + Convert.ToInt32(!checkBox2.Checked) * channelValues[currentChannel - 1][1][i].Y 
+                            + Convert.ToInt32(!checkBox3.Checked) * channelValues[currentChannel - 1][2][i].Y 
+                            + Convert.ToInt32(!checkBox4.Checked) * channelValues[currentChannel - 1][3][i].Y 
+                            + Convert.ToInt32(!checkBox5.Checked) * channelValues[currentChannel - 1][4][i].Y 
+                            + Convert.ToInt32(!checkBox6.Checked) * channelValues[currentChannel - 1][5][i].Y 
+                            + Convert.ToInt32(!checkBox7.Checked) * channelValues[currentChannel - 1][6][i].Y 
+                            + Convert.ToInt32(!checkBox8.Checked) * channelValues[currentChannel - 1][7][i].Y 
+                            + Convert.ToInt32(!checkBox9.Checked) * channelValues[currentChannel - 1][8][i].Y 
+                            + Convert.ToInt32(!checkBox10.Checked) * channelValues[currentChannel - 1][9][i].Y 
+                            + Convert.ToInt32(!checkBox11.Checked) * channelValues[currentChannel - 1][10][i].Y 
+                            + Convert.ToInt32(!checkBox12.Checked) * channelValues[currentChannel - 1][11][i].Y;
+
+                var point = new ObservablePoint(plotFrequencies[i], sum);
+                channelPoints[i] = point;
+            }
+            channelValues[currentChannel - 1][12].Clear();
+            channelValues[currentChannel - 1][12].AddRange(channelPoints);
         }
     }
 }
