@@ -12,6 +12,7 @@ using LiveCharts.Defaults;
 using LiveCharts.Wpf;
 using LiveCharts.Configurations;
 using LiveCharts.Helpers;
+using System.Windows.Media.Imaging;
 
 namespace Bunker_GUI
 {
@@ -27,104 +28,21 @@ namespace Bunker_GUI
         private int phase = 1;
         //INFORMATION STORING
         private double[] plotFrequencies = generateKeyFrequencies();
-        private ChartValues<ObservablePoint>[][] channelValues = new ChartValues<ObservablePoint>[3][]
+        private ChartValues<ObservablePoint>[] plotValues = new ChartValues<ObservablePoint>[13]
         {
-            new ChartValues<ObservablePoint>[13]
-            {
-                new ChartValues<ObservablePoint>(),
-                new ChartValues<ObservablePoint>(),
-                new ChartValues<ObservablePoint>(),
-                new ChartValues<ObservablePoint>(),
-                new ChartValues<ObservablePoint>(),
-                new ChartValues<ObservablePoint>(),
-                new ChartValues<ObservablePoint>(),
-                new ChartValues<ObservablePoint>(),
-                new ChartValues<ObservablePoint>(),
-                new ChartValues<ObservablePoint>(),
-                new ChartValues<ObservablePoint>(),
-                new ChartValues<ObservablePoint>(),
-                new ChartValues<ObservablePoint>()
-            },
-            new ChartValues<ObservablePoint>[13]
-            {
-                new ChartValues<ObservablePoint>(),
-                new ChartValues<ObservablePoint>(),
-                new ChartValues<ObservablePoint>(),
-                new ChartValues<ObservablePoint>(),
-                new ChartValues<ObservablePoint>(),
-                new ChartValues<ObservablePoint>(),
-                new ChartValues<ObservablePoint>(),
-                new ChartValues<ObservablePoint>(),
-                new ChartValues<ObservablePoint>(),
-                new ChartValues<ObservablePoint>(),
-                new ChartValues<ObservablePoint>(),
-                new ChartValues<ObservablePoint>(),
-                new ChartValues<ObservablePoint>()
-            },
-            new ChartValues<ObservablePoint>[13]
-            {
-                new ChartValues<ObservablePoint>(),
-                new ChartValues<ObservablePoint>(),
-                new ChartValues<ObservablePoint>(),
-                new ChartValues<ObservablePoint>(),
-                new ChartValues<ObservablePoint>(),
-                new ChartValues<ObservablePoint>(),
-                new ChartValues<ObservablePoint>(),
-                new ChartValues<ObservablePoint>(),
-                new ChartValues<ObservablePoint>(),
-                new ChartValues<ObservablePoint>(),
-                new ChartValues<ObservablePoint>(),
-                new ChartValues<ObservablePoint>(),
-                new ChartValues<ObservablePoint>()
-            }
-        };
-        private double[][][] magnitudeValues = new double[3][][]
-        {
-            new double[][]
-            {
-                new double[809],
-                new double[809],
-                new double[809],
-                new double[809],
-                new double[809],
-                new double[809],
-                new double[809],
-                new double[809],
-                new double[809],
-                new double[809],
-                new double[809],
-                new double[809]
-            },
-            new double[][]
-            {
-                new double[809],
-                new double[809],
-                new double[809],
-                new double[809],
-                new double[809],
-                new double[809],
-                new double[809],
-                new double[809],
-                new double[809],
-                new double[809],
-                new double[809],
-                new double[809]
-            },
-            new double[][]
-            {
-                new double[809],
-                new double[809],
-                new double[809],
-                new double[809],
-                new double[809],
-                new double[809],
-                new double[809],
-                new double[809],
-                new double[809],
-                new double[809],
-                new double[809],
-                new double[809]
-            }
+            new ChartValues<ObservablePoint>(),
+            new ChartValues<ObservablePoint>(),
+            new ChartValues<ObservablePoint>(),
+            new ChartValues<ObservablePoint>(),
+            new ChartValues<ObservablePoint>(),
+            new ChartValues<ObservablePoint>(),
+            new ChartValues<ObservablePoint>(),
+            new ChartValues<ObservablePoint>(),
+            new ChartValues<ObservablePoint>(),
+            new ChartValues<ObservablePoint>(),
+            new ChartValues<ObservablePoint>(),
+            new ChartValues<ObservablePoint>(),
+            new ChartValues<ObservablePoint>()
         };
         private ObservablePoint[] channelPoints = new ObservablePoint[809];
         private double[][] freqValues = new double[3][] 
@@ -225,9 +143,8 @@ namespace Bunker_GUI
                     {
                         ObservablePoint point = new ObservablePoint(plotFrequencies[k], 0);
                         channelPoints[k] = point;
-                        magnitudeValues[i][j][k] = 0;
                     }
-                    channelValues[i][j].AddRange(channelPoints);
+                    plotValues[j].AddRange(channelPoints);
                 }
             }
         }
@@ -388,6 +305,18 @@ namespace Bunker_GUI
                 checkBox22.Text = "";
                 checkBox23.Text = "";
                 checkBox24.Text = "";
+                checkBox13.Checked = false;
+                checkBox14.Checked = false;
+                checkBox15.Checked = false;
+                checkBox16.Checked = false;
+                checkBox17.Checked = false;
+                checkBox18.Checked = false;
+                checkBox19.Checked = false;
+                checkBox20.Checked = false;
+                checkBox21.Checked = false;
+                checkBox22.Checked = false;
+                checkBox23.Checked = false;
+                checkBox24.Checked = false;
             }
             //TEXTBOX
             {
@@ -754,7 +683,7 @@ namespace Bunker_GUI
             {
                 new LineSeries     //BAND1
                 {
-                    Values = channelValues[currentChannel - 1][0],
+                    Values = plotValues[0],
                     Stroke = System.Windows.Media.Brushes.Red,
                     Fill = System.Windows.Media.Brushes.Transparent,
                     DataLabels = false,
@@ -762,7 +691,7 @@ namespace Bunker_GUI
                 },
                 new LineSeries    //BAND2
                 {
-                    Values = channelValues[currentChannel - 1][1],
+                    Values = plotValues[1],
                     Stroke = System.Windows.Media.Brushes.Blue,
                     Fill = System.Windows.Media.Brushes.Transparent,
                     DataLabels = false,
@@ -770,7 +699,7 @@ namespace Bunker_GUI
                 },
                 new LineSeries     //BAND3
                 {
-                    Values = channelValues[currentChannel - 1][2],
+                    Values = plotValues[2],
                     Stroke = System.Windows.Media.Brushes.Yellow,
                     Fill = System.Windows.Media.Brushes.Transparent,
                     DataLabels = false,
@@ -778,7 +707,7 @@ namespace Bunker_GUI
                 },
                 new LineSeries     //BAND4
                 {
-                    Values = channelValues[currentChannel - 1][3],
+                    Values = plotValues[3],
                     Stroke = System.Windows.Media.Brushes.Green,
                     Fill = System.Windows.Media.Brushes.Transparent,
                     DataLabels = false,
@@ -786,7 +715,7 @@ namespace Bunker_GUI
                 },
                 new LineSeries     //BAND5
                 {
-                    Values = channelValues[currentChannel - 1][4],
+                    Values = plotValues[4],
                     Stroke = System.Windows.Media.Brushes.Orange,
                     Fill = System.Windows.Media.Brushes.Transparent,
                     DataLabels = false,
@@ -794,7 +723,7 @@ namespace Bunker_GUI
                 },
                 new LineSeries      //BAND6
                 {
-                    Values = channelValues[currentChannel - 1][5],
+                    Values = plotValues[5],
                     Stroke = System.Windows.Media.Brushes.Brown,
                     Fill = System.Windows.Media.Brushes.Transparent,
                     DataLabels = false,
@@ -802,7 +731,7 @@ namespace Bunker_GUI
                 },
                 new LineSeries      //BAND7
                 {
-                    Values = channelValues[currentChannel - 1][6],
+                    Values = plotValues[6],
                     Stroke = System.Windows.Media.Brushes.Pink,
                     Fill = System.Windows.Media.Brushes.Transparent,
                     DataLabels = false,
@@ -810,7 +739,7 @@ namespace Bunker_GUI
                 },
                 new LineSeries      //BAND8
                 {
-                    Values = channelValues[currentChannel - 1][7],
+                    Values = plotValues[7],
                     Stroke = System.Windows.Media.Brushes.Purple,
                     Fill = System.Windows.Media.Brushes.Transparent,
                     DataLabels = false,
@@ -818,7 +747,7 @@ namespace Bunker_GUI
                 },
                 new LineSeries      //BAND9
                 {
-                    Values = channelValues[currentChannel - 1][8],
+                    Values = plotValues[8],
                     Stroke = System.Windows.Media.Brushes.CornflowerBlue,
                     Fill = System.Windows.Media.Brushes.Transparent,
                     DataLabels = false,
@@ -826,7 +755,7 @@ namespace Bunker_GUI
                 },
                 new LineSeries      //BAND10
                 {
-                    Values = channelValues[currentChannel - 1][9],
+                    Values = plotValues[9],
                     Stroke = System.Windows.Media.Brushes.DarkGreen,
                     Fill = System.Windows.Media.Brushes.Transparent,
                     DataLabels = false,
@@ -834,7 +763,7 @@ namespace Bunker_GUI
                 },
                 new LineSeries      //BAND11
                 {
-                    Values = channelValues[currentChannel - 1][10],
+                    Values = plotValues[10],
                     Stroke = System.Windows.Media.Brushes.Crimson,
                     Fill = System.Windows.Media.Brushes.Transparent,
                     DataLabels = false,
@@ -842,7 +771,7 @@ namespace Bunker_GUI
                 },
                 new LineSeries      //BAND12
                 {
-                    Values = channelValues[currentChannel - 1][11],
+                    Values = plotValues[11],
                     Stroke = System.Windows.Media.Brushes.BlanchedAlmond,
                     Fill = System.Windows.Media.Brushes.Transparent,
                     DataLabels = false,
@@ -850,7 +779,7 @@ namespace Bunker_GUI
                 },
                 new LineSeries      //RESULT
                 {
-                    Values = channelValues[currentChannel - 1][12],
+                    Values = plotValues[12],
                     Stroke = System.Windows.Media.Brushes.White,
                     Fill = System.Windows.Media.Brushes.Transparent,
                     DataLabels = false,
@@ -884,6 +813,200 @@ namespace Bunker_GUI
 
             cartesianChart1.AxisX.Add(xAxis);
             cartesianChart1.AxisY.Add(yAxis);
+
+            var uri1 = new Uri("D:/THOR/Assets/circle_1.png", UriKind.Relative);
+            var uri2 = new Uri("D:/THOR/Assets/circle_2.png", UriKind.Relative);
+            var uri3 = new Uri("D:/THOR/Assets/circle_3.png", UriKind.Relative);
+            var uri4 = new Uri("D:/THOR/Assets/circle_4.png", UriKind.Relative);
+            var uri5 = new Uri("D:/THOR/Assets/circle_5.png", UriKind.Relative);
+            var uri6 = new Uri("D:/THOR/Assets/circle_6.png", UriKind.Relative);
+            var uri7 = new Uri("D:/THOR/Assets/circle_7.png", UriKind.Relative);
+            var uri8 = new Uri("D:/THOR/Assets/circle_8.png", UriKind.Relative);
+            var uri9 = new Uri("D:/THOR/Assets/circle_9.png", UriKind.Relative);
+            var uri10 = new Uri("D:/THOR/Assets/circle_10.png", UriKind.Relative);
+            var uri11 = new Uri("D:/THOR/Assets/circle_11.png", UriKind.Relative);
+            var uri12 = new Uri("D:/THOR/Assets/circle_12.png", UriKind.Relative);
+
+            var element1 = new VisualElement
+            {
+                X = Math.Log10(freqValues[currentChannel - 1][0]),
+                Y = gainValues[currentChannel - 1][0] + 2,
+                HorizontalAlignment = System.Windows.HorizontalAlignment.Center,
+                VerticalAlignment = System.Windows.VerticalAlignment.Bottom,
+                UIElement = new System.Windows.Controls.Image
+                {
+                    Source = new BitmapImage(uri1),
+                    Width = 20,
+                    Height = 20
+                }
+            };
+
+            var element2 = new VisualElement
+            {
+                X = Math.Log10(freqValues[currentChannel - 1][1]),
+                Y = gainValues[currentChannel - 1][1] + 2,
+                HorizontalAlignment = System.Windows.HorizontalAlignment.Center,
+                VerticalAlignment = System.Windows.VerticalAlignment.Bottom,
+                UIElement = new System.Windows.Controls.Image
+                {
+                    Source = new BitmapImage(uri2),
+                    Width = 20,
+                    Height = 20
+                }
+            };
+
+            var element3 = new VisualElement
+            {
+                X = Math.Log10(freqValues[currentChannel - 1][2]),
+                Y = gainValues[currentChannel - 1][2] + 2,
+                HorizontalAlignment = System.Windows.HorizontalAlignment.Center,
+                VerticalAlignment = System.Windows.VerticalAlignment.Bottom,
+                UIElement = new System.Windows.Controls.Image
+                {
+                    Source = new BitmapImage(uri3),
+                    Width = 20,
+                    Height = 20
+                }
+            };
+
+            var element4 = new VisualElement
+            {
+                X = Math.Log10(freqValues[currentChannel - 1][3]),
+                Y = gainValues[currentChannel - 1][3] + 2,
+                HorizontalAlignment = System.Windows.HorizontalAlignment.Center,
+                VerticalAlignment = System.Windows.VerticalAlignment.Bottom,
+                UIElement = new System.Windows.Controls.Image
+                {
+                    Source = new BitmapImage(uri4),
+                    Width = 20,
+                    Height = 20
+                }
+            };
+
+            var element5 = new VisualElement
+            {
+                X = Math.Log10(freqValues[currentChannel - 1][4]),
+                Y = gainValues[currentChannel - 1][4] + 2,
+                HorizontalAlignment = System.Windows.HorizontalAlignment.Center,
+                VerticalAlignment = System.Windows.VerticalAlignment.Bottom,
+                UIElement = new System.Windows.Controls.Image
+                {
+                    Source = new BitmapImage(uri5),
+                    Width = 20,
+                    Height = 20
+                }
+            };
+
+            var element6 = new VisualElement
+            {
+                X = Math.Log10(freqValues[currentChannel - 1][5]),
+                Y = gainValues[currentChannel - 1][5] + 2,
+                HorizontalAlignment = System.Windows.HorizontalAlignment.Center,
+                VerticalAlignment = System.Windows.VerticalAlignment.Bottom,
+                UIElement = new System.Windows.Controls.Image
+                {
+                    Source = new BitmapImage(uri6),
+                    Width = 20,
+                    Height = 20
+                }
+            };
+
+            var element7 = new VisualElement
+            {
+                X = Math.Log10(freqValues[currentChannel - 1][6]),
+                Y = gainValues[currentChannel - 1][6] + 2,
+                HorizontalAlignment = System.Windows.HorizontalAlignment.Center,
+                VerticalAlignment = System.Windows.VerticalAlignment.Bottom,
+                UIElement = new System.Windows.Controls.Image
+                {
+                    Source = new BitmapImage(uri7),
+                    Width = 20,
+                    Height = 20
+                }
+            };
+
+            var element8 = new VisualElement
+            {
+                X = Math.Log10(freqValues[currentChannel - 1][7]),
+                Y = gainValues[currentChannel - 1][7] + 2,
+                HorizontalAlignment = System.Windows.HorizontalAlignment.Center,
+                VerticalAlignment = System.Windows.VerticalAlignment.Bottom,
+                UIElement = new System.Windows.Controls.Image
+                {
+                    Source = new BitmapImage(uri8),
+                    Width = 20,
+                    Height = 20
+                }
+            };
+
+            var element9 = new VisualElement
+            {
+                X = Math.Log10(freqValues[currentChannel - 1][8]),
+                Y = gainValues[currentChannel - 1][8] + 2,
+                HorizontalAlignment = System.Windows.HorizontalAlignment.Center,
+                VerticalAlignment = System.Windows.VerticalAlignment.Bottom,
+                UIElement = new System.Windows.Controls.Image
+                {
+                    Source = new BitmapImage(uri9),
+                    Width = 20,
+                    Height = 20
+                }
+            };
+
+            var element10 = new VisualElement
+            {
+                X = Math.Log10(freqValues[currentChannel - 1][9]),
+                Y = gainValues[currentChannel - 1][9] + 2,
+                HorizontalAlignment = System.Windows.HorizontalAlignment.Center,
+                VerticalAlignment = System.Windows.VerticalAlignment.Bottom,
+                UIElement = new System.Windows.Controls.Image
+                {
+                    Source = new BitmapImage(uri10),
+                    Width = 20,
+                    Height = 20
+                }
+            };
+
+            var element11 = new VisualElement
+            {
+                X = Math.Log10(freqValues[currentChannel - 1][10]),
+                Y = gainValues[currentChannel - 1][10] + 2,
+                HorizontalAlignment = System.Windows.HorizontalAlignment.Center,
+                VerticalAlignment = System.Windows.VerticalAlignment.Bottom,
+                UIElement = new System.Windows.Controls.Image
+                {
+                    Source = new BitmapImage(uri11),
+                    Width = 20,
+                    Height = 20
+                }
+            };
+
+            var element12 = new VisualElement
+            {
+                X = Math.Log10(freqValues[currentChannel - 1][11]),
+                Y = gainValues[currentChannel - 1][11] + 2,
+                HorizontalAlignment = System.Windows.HorizontalAlignment.Center,
+                VerticalAlignment = System.Windows.VerticalAlignment.Bottom,
+                UIElement = new System.Windows.Controls.Image
+                {
+                    Source = new BitmapImage(uri12),
+                    Width = 20,
+                    Height = 20
+                }
+            };
+
+            cartesianChart1.VisualElements.Add(element1);
+            cartesianChart1.VisualElements.Add(element2);
+            cartesianChart1.VisualElements.Add(element3);
+            cartesianChart1.VisualElements.Add(element4);
+            cartesianChart1.VisualElements.Add(element5);
+            cartesianChart1.VisualElements.Add(element6);
+            cartesianChart1.VisualElements.Add(element7);
+            cartesianChart1.VisualElements.Add(element8);
+            cartesianChart1.VisualElements.Add(element9);
+            cartesianChart1.VisualElements.Add(element10);
+            cartesianChart1.VisualElements.Add(element11);
+            cartesianChart1.VisualElements.Add(element12);
         }
         //=======================================================================INITIALIZATION======================================================================================
         
@@ -1155,6 +1278,16 @@ namespace Bunker_GUI
             }
         }
         
+        private void updatePlot()
+        {
+            for (int i = 1; i <= 12; i++)
+            {
+                generateValues(i);
+                cartesianChart1.VisualElements[i - 1].X = Math.Log10(freqValues[currentChannel - 1][i - 1]);
+                cartesianChart1.VisualElements[i - 1].Y = gainValues[currentChannel - 1][i - 1] + 2;
+            }
+        }
+
         private void macTrackBar1_ValueChanged(object sender, decimal value)
         {
             resetTextboxColors();
@@ -1202,6 +1335,7 @@ namespace Bunker_GUI
                     break;
             }
             generateValues(currentBand);
+            cartesianChart1.VisualElements[currentBand - 1].X = Math.Log10(freqValues[currentChannel - 1][currentBand - 1]);
         }
 
         private void macTrackBar2_ValueChanged(object sender, decimal value)
@@ -1300,6 +1434,7 @@ namespace Bunker_GUI
                     break;
             }
             generateValues(currentBand);
+            cartesianChart1.VisualElements[currentBand - 1].Y = gainValues[currentChannel - 1][currentBand - 1] + 2;
         }
 
         private void macTrackBar4_ValueChanged(object sender, decimal value)
@@ -1884,6 +2019,7 @@ namespace Bunker_GUI
             resetTextboxColors();
             button1.BackColor = System.Drawing.Color.SteelBlue;
             button1.ForeColor = System.Drawing.Color.White;
+            updatePlot();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -1898,6 +2034,7 @@ namespace Bunker_GUI
             resetTextboxColors();
             button2.BackColor = System.Drawing.Color.SteelBlue;
             button2.ForeColor = System.Drawing.Color.White;
+            updatePlot();
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -1912,6 +2049,7 @@ namespace Bunker_GUI
             resetTextboxColors();
             button3.BackColor = System.Drawing.Color.SteelBlue;
             button3.ForeColor = System.Drawing.Color.White;
+            updatePlot();
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -3329,8 +3467,8 @@ namespace Bunker_GUI
                 channelPoints[i] = point;
             }
 
-            channelValues[currentChannel - 1][band - 1].Clear();
-            channelValues[currentChannel - 1][band - 1].AddRange(channelPoints);
+            plotValues[band - 1].Clear();
+            plotValues[band - 1].AddRange(channelPoints);
             generateResult();
         }
 
@@ -3338,24 +3476,168 @@ namespace Bunker_GUI
         {
             for (int i = 0; i < plotFrequencies.Length; i++)
             {
-                double sum = Convert.ToInt32(!checkBox1.Checked) * channelValues[currentChannel - 1][0][i].Y 
-                            + Convert.ToInt32(!checkBox2.Checked) * channelValues[currentChannel - 1][1][i].Y 
-                            + Convert.ToInt32(!checkBox3.Checked) * channelValues[currentChannel - 1][2][i].Y 
-                            + Convert.ToInt32(!checkBox4.Checked) * channelValues[currentChannel - 1][3][i].Y 
-                            + Convert.ToInt32(!checkBox5.Checked) * channelValues[currentChannel - 1][4][i].Y 
-                            + Convert.ToInt32(!checkBox6.Checked) * channelValues[currentChannel - 1][5][i].Y 
-                            + Convert.ToInt32(!checkBox7.Checked) * channelValues[currentChannel - 1][6][i].Y 
-                            + Convert.ToInt32(!checkBox8.Checked) * channelValues[currentChannel - 1][7][i].Y 
-                            + Convert.ToInt32(!checkBox9.Checked) * channelValues[currentChannel - 1][8][i].Y 
-                            + Convert.ToInt32(!checkBox10.Checked) * channelValues[currentChannel - 1][9][i].Y 
-                            + Convert.ToInt32(!checkBox11.Checked) * channelValues[currentChannel - 1][10][i].Y 
-                            + Convert.ToInt32(!checkBox12.Checked) * channelValues[currentChannel - 1][11][i].Y;
+                double sum = Convert.ToInt32(!checkBox1.Checked) * plotValues[0][i].Y 
+                            + Convert.ToInt32(!checkBox2.Checked) * plotValues[1][i].Y 
+                            + Convert.ToInt32(!checkBox3.Checked) * plotValues[2][i].Y 
+                            + Convert.ToInt32(!checkBox4.Checked) * plotValues[3][i].Y 
+                            + Convert.ToInt32(!checkBox5.Checked) * plotValues[4][i].Y 
+                            + Convert.ToInt32(!checkBox6.Checked) * plotValues[5][i].Y 
+                            + Convert.ToInt32(!checkBox7.Checked) * plotValues[6][i].Y 
+                            + Convert.ToInt32(!checkBox8.Checked) * plotValues[7][i].Y 
+                            + Convert.ToInt32(!checkBox9.Checked) * plotValues[8][i].Y 
+                            + Convert.ToInt32(!checkBox10.Checked) * plotValues[9][i].Y 
+                            + Convert.ToInt32(!checkBox11.Checked) * plotValues[10][i].Y 
+                            + Convert.ToInt32(!checkBox12.Checked) * plotValues[11][i].Y;
 
                 var point = new ObservablePoint(plotFrequencies[i], sum);
                 channelPoints[i] = point;
             }
-            channelValues[currentChannel - 1][12].Clear();
-            channelValues[currentChannel - 1][12].AddRange(channelPoints);
+            plotValues[12].Clear();
+            plotValues[12].AddRange(channelPoints);
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            generateResult();
+        }
+
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+            generateResult();
+        }
+
+        private void checkBox3_CheckedChanged(object sender, EventArgs e)
+        {
+            generateResult();
+        }
+
+        private void checkBox4_CheckedChanged(object sender, EventArgs e)
+        {
+            generateResult();
+        }
+
+        private void checkBox5_CheckedChanged(object sender, EventArgs e)
+        {
+            generateResult();
+        }
+
+        private void checkBox6_CheckedChanged(object sender, EventArgs e)
+        {
+            generateResult();
+        }
+
+        private void checkBox7_CheckedChanged(object sender, EventArgs e)
+        {
+            generateResult();
+        }
+
+        private void checkBox8_CheckedChanged(object sender, EventArgs e)
+        {
+            generateResult();
+        }
+
+        private void checkBox9_CheckedChanged(object sender, EventArgs e)
+        {
+            generateResult();
+        }
+
+        private void checkBox10_CheckedChanged(object sender, EventArgs e)
+        {
+            generateResult();
+        }
+
+        private void checkBox11_CheckedChanged(object sender, EventArgs e)
+        {
+            generateResult();
+        }
+
+        private void checkBox12_CheckedChanged(object sender, EventArgs e)
+        {
+            generateResult();
+        }
+
+        private void checkBox13_CheckedChanged(object sender, EventArgs e)
+        {
+            var seriesToHide = (cartesianChart1.Series[0] as LineSeries);
+            if (checkBox13.Checked) seriesToHide.Visibility = System.Windows.Visibility.Visible;
+            else seriesToHide.Visibility = System.Windows.Visibility.Hidden;
+        }
+
+        private void checkBox14_CheckedChanged(object sender, EventArgs e)
+        {
+            var seriesToHide = (cartesianChart1.Series[1] as LineSeries);
+            if (checkBox14.Checked) seriesToHide.Visibility = System.Windows.Visibility.Visible;
+            else seriesToHide.Visibility = System.Windows.Visibility.Hidden;
+        }
+
+        private void checkBox15_CheckedChanged(object sender, EventArgs e)
+        {
+            var seriesToHide = (cartesianChart1.Series[2] as LineSeries);
+            if (checkBox15.Checked) seriesToHide.Visibility = System.Windows.Visibility.Visible;
+            else seriesToHide.Visibility = System.Windows.Visibility.Hidden;
+        }
+
+        private void checkBox16_CheckedChanged(object sender, EventArgs e)
+        {
+            var seriesToHide = (cartesianChart1.Series[3] as LineSeries);
+            if (checkBox16.Checked) seriesToHide.Visibility = System.Windows.Visibility.Visible;
+            else seriesToHide.Visibility = System.Windows.Visibility.Hidden;
+        }
+
+        private void checkBox17_CheckedChanged(object sender, EventArgs e)
+        {
+            var seriesToHide = (cartesianChart1.Series[4] as LineSeries);
+            if (checkBox17.Checked) seriesToHide.Visibility = System.Windows.Visibility.Visible;
+            else seriesToHide.Visibility = System.Windows.Visibility.Hidden;
+        }
+
+        private void checkBox18_CheckedChanged(object sender, EventArgs e)
+        {
+            var seriesToHide = (cartesianChart1.Series[5] as LineSeries);
+            if (checkBox18.Checked) seriesToHide.Visibility = System.Windows.Visibility.Visible;
+            else seriesToHide.Visibility = System.Windows.Visibility.Hidden;
+        }
+
+        private void checkBox19_CheckedChanged(object sender, EventArgs e)
+        {
+            var seriesToHide = (cartesianChart1.Series[6] as LineSeries);
+            if (checkBox19.Checked) seriesToHide.Visibility = System.Windows.Visibility.Visible;
+            else seriesToHide.Visibility = System.Windows.Visibility.Hidden;
+        }
+
+        private void checkBox20_CheckedChanged(object sender, EventArgs e)
+        {
+            var seriesToHide = (cartesianChart1.Series[7] as LineSeries);
+            if (checkBox20.Checked) seriesToHide.Visibility = System.Windows.Visibility.Visible;
+            else seriesToHide.Visibility = System.Windows.Visibility.Hidden;
+        }
+
+        private void checkBox21_CheckedChanged(object sender, EventArgs e)
+        {
+            var seriesToHide = (cartesianChart1.Series[8] as LineSeries);
+            if (checkBox21.Checked) seriesToHide.Visibility = System.Windows.Visibility.Visible;
+            else seriesToHide.Visibility = System.Windows.Visibility.Hidden;
+        }
+
+        private void checkBox22_CheckedChanged(object sender, EventArgs e)
+        {
+            var seriesToHide = (cartesianChart1.Series[9] as LineSeries);
+            if (checkBox22.Checked) seriesToHide.Visibility = System.Windows.Visibility.Visible;
+            else seriesToHide.Visibility = System.Windows.Visibility.Hidden;
+        }
+
+        private void checkBox23_CheckedChanged(object sender, EventArgs e)
+        {
+            var seriesToHide = (cartesianChart1.Series[10] as LineSeries);
+            if (checkBox23.Checked) seriesToHide.Visibility = System.Windows.Visibility.Visible;
+            else seriesToHide.Visibility = System.Windows.Visibility.Hidden;
+        }
+
+        private void checkBox24_CheckedChanged(object sender, EventArgs e)
+        {
+            var seriesToHide = (cartesianChart1.Series[11] as LineSeries);
+            if (checkBox24.Checked) seriesToHide.Visibility = System.Windows.Visibility.Visible;
+            else seriesToHide.Visibility = System.Windows.Visibility.Hidden;
         }
     }
 }
