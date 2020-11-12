@@ -26,6 +26,7 @@ namespace Bunker_GUI
             updateBoxes();
             generateValues(currentBand);
             cartesianChart1.VisualElements[currentBand - 1].X = Math.Log10(freqValues[currentChannel - 1][currentBand - 1]);
+            hasBeenModified = true;
         }
 
         private void macTrackBar2_ValueChanged(object sender, decimal value)
@@ -37,6 +38,7 @@ namespace Bunker_GUI
             qValues[currentChannel - 1][currentBand - 1] = centralQ[macTrackBar2.Value];
             updateBoxes();
             generateValues(currentBand);
+            hasBeenModified = true;
         }
 
         private void macTrackBar3_ValueChanged(object sender, decimal value)
@@ -47,6 +49,7 @@ namespace Bunker_GUI
             updateBoxes();
             generateValues(currentBand);
             cartesianChart1.VisualElements[currentBand - 1].Y = gainValues[currentChannel - 1][currentBand - 1] + 2;
+            hasBeenModified = true;
         }
 
         private void macTrackBar4_ValueChanged(object sender, decimal value)
@@ -57,6 +60,7 @@ namespace Bunker_GUI
                 volValues[currentChannel - 1] = centralVol[macTrackBar4.Value - 1];
                 textBox38.Text = centralVol[macTrackBar4.Value - 1].ToString() + "dB";
             }
+            hasBeenModified = true;
         }
     }
 }

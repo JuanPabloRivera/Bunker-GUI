@@ -360,49 +360,8 @@ namespace Bunker_GUI
             double A = Math.Pow(10, G / 40);
             double B = Math.Sqrt(A) / Q;
             double num = 0, den = 0;
-            String type;
-            switch (currentBand)
-            {
-                case 1:
-                    type = comboBox1.Text;
-                    break;
-                case 2:
-                    type = comboBox2.Text;
-                    break;
-                case 3:
-                    type = comboBox3.Text;
-                    break;
-                case 4:
-                    type = comboBox4.Text;
-                    break;
-                case 5:
-                    type = comboBox5.Text;
-                    break;
-                case 6:
-                    type = comboBox6.Text;
-                    break;
-                case 7:
-                    type = comboBox7.Text;
-                    break;
-                case 8:
-                    type = comboBox8.Text;
-                    break;
-                case 9:
-                    type = comboBox9.Text;
-                    break;
-                case 10:
-                    type = comboBox10.Text;
-                    break;
-                case 11:
-                    type = comboBox11.Text;
-                    break;
-                case 12:
-                    type = comboBox12.Text;
-                    break;
-                default:
-                    type = "Parametric";
-                    break;
-            }
+            String type = typeValues[currentChannel - 1][band - 1];
+
             for (int i = 0; i < plotFrequencies.Length; i++)
             {
                 double W = plotFrequencies[i] / freqValues[currentChannel - 1][band - 1];

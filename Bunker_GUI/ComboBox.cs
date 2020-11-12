@@ -20,8 +20,9 @@ namespace Bunker_GUI
     {
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            typeValues[currentChannel - 1][currentBand - 1] = comboBox1.Text;
-            if (comboBox1.Text == "Low Shelf" || comboBox1.Text == "High Shelf")
+            currentBand = 1;
+            typeValues[currentChannel - 1][currentBand - 1] = comboBox1.SelectedItem.ToString();
+            if (comboBox1.SelectedItem.ToString() == "Low Shelf" || comboBox1.SelectedItem.ToString() == "High Shelf")
             {
                 if (qValues[currentChannel - 1][currentBand - 1] > 1.30) qValues[currentChannel - 1][currentBand - 1] = 1.30;
                 updateTrackbars();
@@ -31,6 +32,7 @@ namespace Bunker_GUI
 
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
+            currentBand = 2;
             typeValues[currentChannel - 1][currentBand - 1] = comboBox2.Text;
             if (comboBox2.Text == "Low Shelf" || comboBox2.Text == "High Shelf")
             {
@@ -42,6 +44,7 @@ namespace Bunker_GUI
 
         private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
         {
+            currentBand = 3;
             typeValues[currentChannel - 1][currentBand - 1] = comboBox3.Text;
             if (comboBox3.Text == "Low Shelf" || comboBox3.Text == "High Shelf")
             {
@@ -53,6 +56,7 @@ namespace Bunker_GUI
 
         private void comboBox4_SelectedIndexChanged(object sender, EventArgs e)
         {
+            currentBand = 4;
             typeValues[currentChannel - 1][currentBand - 1] = comboBox4.Text;
             if (comboBox4.Text == "Low Shelf" || comboBox4.Text == "High Shelf")
             {
@@ -64,6 +68,7 @@ namespace Bunker_GUI
 
         private void comboBox5_SelectedIndexChanged(object sender, EventArgs e)
         {
+            currentBand = 5;
             typeValues[currentChannel - 1][currentBand - 1] = comboBox5.Text;
             if (comboBox5.Text == "Low Shelf" || comboBox5.Text == "High Shelf")
             {
@@ -75,6 +80,7 @@ namespace Bunker_GUI
 
         private void comboBox6_SelectedIndexChanged(object sender, EventArgs e)
         {
+            currentBand = 6;
             typeValues[currentChannel - 1][currentBand - 1] = comboBox6.Text;
             if (comboBox6.Text == "Low Shelf" || comboBox6.Text == "High Shelf")
             {
@@ -86,6 +92,7 @@ namespace Bunker_GUI
 
         private void comboBox7_SelectedIndexChanged(object sender, EventArgs e)
         {
+            currentBand = 7;
             typeValues[currentChannel - 1][currentBand - 1] = comboBox7.Text;
             if (comboBox7.Text == "Low Shelf" || comboBox7.Text == "High Shelf")
             {
@@ -97,6 +104,7 @@ namespace Bunker_GUI
 
         private void comboBox8_SelectedIndexChanged(object sender, EventArgs e)
         {
+            currentBand = 8;
             typeValues[currentChannel - 1][currentBand - 1] = comboBox8.Text;
             if (comboBox8.Text == "Low Shelf" || comboBox8.Text == "High Shelf")
             {
@@ -108,6 +116,7 @@ namespace Bunker_GUI
 
         private void comboBox9_SelectedIndexChanged(object sender, EventArgs e)
         {
+            currentBand = 9;
             typeValues[currentChannel - 1][currentBand - 1] = comboBox9.Text;
             if (comboBox9.Text == "Low Shelf" || comboBox9.Text == "High Shelf")
             {
@@ -119,6 +128,7 @@ namespace Bunker_GUI
 
         private void comboBox10_SelectedIndexChanged(object sender, EventArgs e)
         {
+            currentBand = 10;
             typeValues[currentChannel - 1][currentBand - 1] = comboBox10.Text;
             if (comboBox10.Text == "Low Shelf" || comboBox10.Text == "High Shelf")
             {
@@ -130,6 +140,7 @@ namespace Bunker_GUI
 
         private void comboBox11_SelectedIndexChanged(object sender, EventArgs e)
         {
+            currentBand = 11;
             typeValues[currentChannel - 1][currentBand - 1] = comboBox11.Text;
             if (comboBox11.Text == "Low Shelf" || comboBox11.Text == "High Shelf")
             {
@@ -141,6 +152,7 @@ namespace Bunker_GUI
 
         private void comboBox12_SelectedIndexChanged(object sender, EventArgs e)
         {
+            currentBand = 12;
             typeValues[currentChannel - 1][currentBand - 1] = comboBox12.Text;
             if (comboBox12.Text == "Low Shelf" || comboBox12.Text == "High Shelf")
             {

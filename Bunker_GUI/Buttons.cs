@@ -27,7 +27,6 @@ namespace Bunker_GUI
             updateTrackbars();
             updateBoxes();
             resetButtonColors();
-            resetTextboxColors();
             button1.BackColor = System.Drawing.Color.SteelBlue;
             button1.ForeColor = System.Drawing.Color.White;
             updatePlot();
@@ -42,7 +41,6 @@ namespace Bunker_GUI
             updateTrackbars();
             updateBoxes();
             resetButtonColors();
-            resetTextboxColors();
             button2.BackColor = System.Drawing.Color.SteelBlue;
             button2.ForeColor = System.Drawing.Color.White;
             updatePlot();
@@ -57,7 +55,6 @@ namespace Bunker_GUI
             updateTrackbars();
             updateBoxes();
             resetButtonColors();
-            resetTextboxColors();
             button3.BackColor = System.Drawing.Color.SteelBlue;
             button3.ForeColor = System.Drawing.Color.White;
             updatePlot();

@@ -20,7 +20,10 @@ namespace Bunker_GUI
     {
         private int currentBand = 1;
         private int currentChannel = 1;
-        
+        //FILE CREATION
+        bool fileExists = false;
+        bool hasBeenModified;
+        string fileName = "";
         //WIDGET LOCATION AND SIZE
         private int padx = 30;
         private int pady = 25;
@@ -110,8 +113,9 @@ namespace Bunker_GUI
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            this.Text = "BUNKER AUDIO CONTROLLER";
             this.BackColor = System.Drawing.Color.Black;
-            this.MinimumSize = new Size(1450, 800);
+            this.MinimumSize = new Size(1450, 850);
             this.Size = this.MinimumSize;
             initializeValues();
             chartConfig();
@@ -119,6 +123,7 @@ namespace Bunker_GUI
             updateWidgetsSize();
             updateWidgetsPosition();
             updatePlot();
+            hasBeenModified = false;
         }
     }
 }

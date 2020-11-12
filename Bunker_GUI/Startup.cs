@@ -502,29 +502,30 @@ namespace Bunker_GUI
             {
                 //BUTTON 1 
                 button1.Text = "CH 1";
-                button1.Size = new Size(75, 35);
                 button1.Font = new Font("Microsoft Sans Serif", 8, FontStyle.Bold);
                 button1.BackColor = System.Drawing.Color.SteelBlue;
                 button1.ForeColor = System.Drawing.Color.White;
                 //BUTTON 2
                 button2.Text = "CH 2";
-                button2.Size = new Size(75, 35);
                 button2.Font = new Font("Microsoft Sans Serif", 8, FontStyle.Bold);
                 button2.BackColor = System.Drawing.Color.White;
                 //BUTTON 3
                 button3.Text = "CH 3";
-                button3.Size = new Size(75, 35);
                 button3.Font = new Font("Microsoft Sans Serif", 8, FontStyle.Bold);
                 button3.BackColor = System.Drawing.Color.White;
                 //BUTTON 4
                 button4.Text = "System";
-                button4.Size = new Size(75, 35);
                 button4.Font = new Font("Microsoft Sans Serif", 8, FontStyle.Bold);
                 button4.BackColor = System.Drawing.Color.White;
                 //BUTTON 5
                 button5.Text = "Phase+";
                 button5.Font = new Font("Microsoft Sans Serif", 8, FontStyle.Regular);
                 button5.BackColor = System.Drawing.Color.White;
+            }
+            //MENU STRIP
+            {
+                menuStrip1.BackColor = System.Drawing.Color.FromArgb(150,150,150);
+                menuStrip1.ForeColor = System.Drawing.Color.Black;
             }
         }
 

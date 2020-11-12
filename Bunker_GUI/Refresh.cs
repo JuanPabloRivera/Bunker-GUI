@@ -19,7 +19,10 @@ namespace Bunker_GUI
     {
         private void updateWidgetsPosition()
         {
-            cartesianChart1.Location = new Point(padx / 2, pady / 2);
+            //MENU STRIP
+            menuStrip1.Location = new Point(0, 0);
+            //CARTESIAN CHART
+            cartesianChart1.Location = new Point(padx / 2, menuStrip1.Height + pady / 2);
             //BUTTONS
             {
                 button1.Location = new Point(cartesianChart1.Location.X, cartesianChart1.Location.Y + cartesianChart1.Height + pady / 2);
@@ -30,18 +33,18 @@ namespace Bunker_GUI
             //LABELS
             {
                 label1.Location = new Point(20, pady / 2);                                                    //BAND
-                label7.Location = new Point(label1.Location.X, label1.Location.Y + pady);                 //1
-                label8.Location = new Point(label1.Location.X, label7.Location.Y + pady);                 //2
-                label9.Location = new Point(label1.Location.X, label8.Location.Y + pady);                 //3
-                label10.Location = new Point(label1.Location.X, label9.Location.Y + pady);                //4
-                label11.Location = new Point(label1.Location.X, label10.Location.Y + pady);               //5
-                label12.Location = new Point(label1.Location.X, label11.Location.Y + pady);               //6
-                label13.Location = new Point(label1.Location.X, label12.Location.Y + pady);               //7
-                label14.Location = new Point(label1.Location.X, label13.Location.Y + pady);               //8
-                label15.Location = new Point(label1.Location.X, label14.Location.Y + pady);               //9
-                label16.Location = new Point(label1.Location.X, label15.Location.Y + pady);               //10
-                label17.Location = new Point(label1.Location.X, label16.Location.Y + pady);               //11
-                label18.Location = new Point(label1.Location.X, label17.Location.Y + pady);               //12
+                label7.Location = new Point(label1.Location.X, label1.Location.Y + 11 * pady / 10);                 //1
+                label8.Location = new Point(label1.Location.X, label7.Location.Y + 11 * pady / 10);                 //2
+                label9.Location = new Point(label1.Location.X, label8.Location.Y + 11 * pady / 10);                 //3
+                label10.Location = new Point(label1.Location.X, label9.Location.Y + 11 * pady / 10);                //4
+                label11.Location = new Point(label1.Location.X, label10.Location.Y + 11 * pady / 10);               //5
+                label12.Location = new Point(label1.Location.X, label11.Location.Y + 11 * pady / 10);               //6
+                label13.Location = new Point(label1.Location.X, label12.Location.Y + 11 * pady / 10);               //7
+                label14.Location = new Point(label1.Location.X, label13.Location.Y + 11 * pady / 10);               //8
+                label15.Location = new Point(label1.Location.X, label14.Location.Y + 11 * pady / 10);               //9
+                label16.Location = new Point(label1.Location.X, label15.Location.Y + 11 * pady / 10);               //10
+                label17.Location = new Point(label1.Location.X, label16.Location.Y + 11 * pady / 10);               //11
+                label18.Location = new Point(label1.Location.X, label17.Location.Y + 11 * pady / 10);               //12
                 label20.Location = new Point(panel2.Width / 2 - label20.Width / 2, label1.Location.Y);     //EQ BAND
                 label21.Location = new Point(padx, 3 * panel2.Height / 20);
                 label22.Location = new Point(padx, 9 * panel2.Height / 20);
@@ -199,10 +202,10 @@ namespace Bunker_GUI
             }
             //PANELS
             {
-                panel1.Size = new Size(4 * this.Width / 10 - padx, ((this.Height - pady / 2) / 2) - pady);
-                panel2.Size = new Size(4 * this.Width / 10 - padx, 3 * this.Height / 10 - pady);
-                panel3.Size = new Size(4 * this.Width / 10 - padx, 2 * this.Height / 10 - 3 * pady / 4);
-                panel4.Size = new Size(2 * this.Width / 10 - padx / 2, ((this.Height - pady / 2) / 2) - pady);
+                panel1.Size = new Size(4 * this.Width / 10 - padx,  this.Height / 2 - 2 * pady);
+                panel2.Size = new Size(4 * this.Width / 10 - padx,  3 * this.Height / 10 - pady);
+                panel3.Size = new Size(4 * this.Width / 10 - padx, this.Height / 4 - 19 * pady / 6);
+                panel4.Size = new Size(2 * this.Width / 10 - padx / 2, this.Height / 2 - 2 * pady);
             }
             //TEXTBOX
             {
@@ -280,6 +283,10 @@ namespace Bunker_GUI
             }
             //BUTTONS
             {
+                button1.Size = new Size(75, 35);
+                button2.Size = new Size(75, 35);
+                button3.Size = new Size(75, 35);
+                button4.Size = new Size(75, 35);
                 button5.Size = new Size(textBox39.Width, button5.Height);
             }
         }
@@ -297,7 +304,7 @@ namespace Bunker_GUI
         private void Form1_ClientSizeChanged(object sender, EventArgs e)
         {
             padx = this.Width / 48;
-            pady = this.Height / 30;
+            pady = this.Height / 34;
             updateWidgetsSize();
             updateWidgetsPosition();
         }
