@@ -517,5 +517,17 @@ namespace Bunker_GUI
             result = (Math.Abs(max - value) < Math.Abs(min - value)) ? max : min;
             return result;
         }
+
+        private void updateProgram(int band = 1, int channel = 1)
+        {
+            currentChannel = channel;
+            label20.Text = "Current EQ Band: " + band.ToString();
+            textBox37.Text = "CH " + channel.ToString();
+            resetButtonColors();
+            updateBoxes();
+            updatePlot();
+            currentBand = band;
+            updateTrackbars();
+        }
     }
 }

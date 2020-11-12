@@ -46,18 +46,11 @@ namespace Bunker_GUI
                 setValues(Encoding.UTF8.GetString(values));
 
                 //UPDATING
-                currentChannel = 1;
-                currentBand = 1;
-                label20.Text = "Current EQ Band: 1";
-                textBox37.Text = "CH 1";
-                updateBoxes();
-                resetButtonColors();
-                updateTrackbars();
+                updateProgram(1, 1);
                 button1.BackColor = System.Drawing.Color.SteelBlue;
                 button1.ForeColor = System.Drawing.Color.White;
                 fileExists = true;
                 hasBeenModified = false;
-                updatePlot();
             }
         }
 
