@@ -171,16 +171,16 @@ namespace Bunker_GUI
             //PANELS
             {
                 panel1.Text = "";
-                panel1.BackColor = System.Drawing.Color.FromArgb(150, 150, 150);
+                panel1.BackColor = backgroundColorLight;
                 panel1.Anchor = (AnchorStyles.Top | AnchorStyles.Left);
                 panel2.Text = "";
-                panel2.BackColor = System.Drawing.Color.FromArgb(150, 150, 150);
+                panel2.BackColor = backgroundColorLight;
                 panel2.Anchor = (AnchorStyles.Top | AnchorStyles.Left);
                 panel3.Text = "";
-                panel3.BackColor = System.Drawing.Color.FromArgb(150, 150, 150);
+                panel3.BackColor = backgroundColorLight;
                 panel3.Anchor = (AnchorStyles.Top | AnchorStyles.Left);
                 panel4.Text = "";
-                panel4.BackColor = System.Drawing.Color.FromArgb(150, 150, 150);
+                panel4.BackColor = backgroundColorLight;
                 panel4.Anchor = (AnchorStyles.Top | AnchorStyles.Left);
             }
             //CHECKBOX
@@ -470,32 +470,32 @@ namespace Bunker_GUI
                 macTrackBar1.Minimum = 0;
                 macTrackBar1.Maximum = centralFreq.Length - 1;
                 macTrackBar1.Value = Array.IndexOf(centralFreq, 21.7);
-                macTrackBar1.TrackLineColor = System.Drawing.Color.Black;
-                macTrackBar1.TrackLineSelectedColor = System.Drawing.Color.SteelBlue;
+                macTrackBar1.TrackLineColor = backgroundColorDark;
+                macTrackBar1.TrackLineSelectedColor = selectedBackColor;
                 //TRACKBAR 2
                 macTrackBar2.TextTickStyle = System.Windows.Forms.TickStyle.None;
                 macTrackBar2.Minimum = 0;
                 macTrackBar2.Maximum = centralQ.Length - 1;
                 macTrackBar2.Value = Array.IndexOf(centralQ, 4);
-                macTrackBar2.TrackLineColor = System.Drawing.Color.Black;
-                macTrackBar2.TrackLineSelectedColor = System.Drawing.Color.SteelBlue;
+                macTrackBar2.TrackLineColor = backgroundColorDark;
+                macTrackBar2.TrackLineSelectedColor = selectedBackColor;
                 //TRACKBAR3
                 macTrackBar3.TextTickStyle = System.Windows.Forms.TickStyle.None;
                 macTrackBar3.Minimum = 0;
                 macTrackBar3.Maximum = centralGain.Length - 1;
                 macTrackBar3.Value = Array.IndexOf(centralGain, 0);
-                macTrackBar3.TrackLineColor = System.Drawing.Color.Black;
-                macTrackBar3.TrackLineSelectedColor = System.Drawing.Color.SteelBlue;
+                macTrackBar3.TrackLineColor = backgroundColorDark;
+                macTrackBar3.TrackLineSelectedColor = selectedBackColor;
                 //TRACKBAR 4
                 macTrackBar4.Minimum = 0;
                 macTrackBar4.Maximum = centralVol.Length;
                 macTrackBar4.Value = Array.IndexOf(centralVol, 0) + 1;
-                macTrackBar4.TrackLineColor = System.Drawing.Color.Black;
-                macTrackBar4.TrackLineSelectedColor = System.Drawing.Color.SteelBlue;
+                macTrackBar4.TrackLineColor = backgroundColorDark;
+                macTrackBar4.TrackLineSelectedColor = selectedBackColor;
                 macTrackBar4.Orientation = System.Windows.Forms.Orientation.Vertical;
                 macTrackBar4.TickFrequency = 25;
                 macTrackBar4.TickStyle = System.Windows.Forms.TickStyle.Both;
-                macTrackBar4.TickColor = System.Drawing.Color.Black;
+                macTrackBar4.TickColor = backgroundColorDark;
                 macTrackBar4.ForeColor = System.Drawing.Color.Transparent;
             }
             //BUTTONS
@@ -503,29 +503,29 @@ namespace Bunker_GUI
                 //BUTTON 1 
                 button1.Text = "CH 1";
                 button1.Font = new Font("Microsoft Sans Serif", 8, FontStyle.Bold);
-                button1.BackColor = System.Drawing.Color.SteelBlue;
-                button1.ForeColor = System.Drawing.Color.White;
+                button1.BackColor = selectedBackColor;
+                button1.ForeColor = selectedForeColor;
                 //BUTTON 2
                 button2.Text = "CH 2";
                 button2.Font = new Font("Microsoft Sans Serif", 8, FontStyle.Bold);
-                button2.BackColor = System.Drawing.Color.White;
+                button2.BackColor = backColor;
                 //BUTTON 3
                 button3.Text = "CH 3";
                 button3.Font = new Font("Microsoft Sans Serif", 8, FontStyle.Bold);
-                button3.BackColor = System.Drawing.Color.White;
+                button3.BackColor = backColor;
                 //BUTTON 4
                 button4.Text = "System";
                 button4.Font = new Font("Microsoft Sans Serif", 8, FontStyle.Bold);
-                button4.BackColor = System.Drawing.Color.White;
+                button4.BackColor = backColor;
                 //BUTTON 5
                 button5.Text = "Phase+";
                 button5.Font = new Font("Microsoft Sans Serif", 8, FontStyle.Regular);
-                button5.BackColor = System.Drawing.Color.White;
+                button5.BackColor = backColor;
             }
             //MENU STRIP
             {
-                menuStrip1.BackColor = System.Drawing.Color.FromArgb(150,150,150);
-                menuStrip1.ForeColor = System.Drawing.Color.Black;
+                menuStrip1.BackColor = backgroundColorLight;
+                menuStrip1.ForeColor = foreColor;
             }
         }
 

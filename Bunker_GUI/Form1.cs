@@ -13,6 +13,7 @@ using LiveCharts.Wpf;
 using LiveCharts.Configurations;
 using LiveCharts.Helpers;
 using System.Windows.Media.Imaging;
+using System.Windows.Media;
 
 namespace Bunker_GUI
 {
@@ -114,7 +115,7 @@ namespace Bunker_GUI
         private void Form1_Load(object sender, EventArgs e)
         {
             this.Text = "BUNKER AUDIO CONTROLLER";
-            this.BackColor = System.Drawing.Color.Black;
+            this.BackColor = backgroundColorDark;
             this.MinimumSize = new Size(1450, 850);
             this.Size = this.MinimumSize;
             initializeValues();

@@ -27,8 +27,8 @@ namespace Bunker_GUI
             label20.Text = "Current EQ Band: 1";
             updateTrackbars();
             resetTextboxColors();
-            textBox1.BackColor = System.Drawing.Color.SteelBlue;
-            textBox1.ForeColor = System.Drawing.Color.White;
+            textBox1.BackColor = selectedBackColor;
+            textBox1.ForeColor = selectedForeColor;
         }
 
         private void textBox1_KeyDown(object sender, KeyEventArgs e)
@@ -70,8 +70,8 @@ namespace Bunker_GUI
             label20.Text = "Current EQ Band: 2";
             updateTrackbars();
             resetTextboxColors();
-            textBox2.BackColor = System.Drawing.Color.SteelBlue;
-            textBox2.ForeColor = System.Drawing.Color.White;
+            textBox2.BackColor = selectedBackColor;
+            textBox2.ForeColor = selectedForeColor;
         }
 
         private void textBox2_KeyDown(object sender, KeyEventArgs e)
@@ -113,8 +113,8 @@ namespace Bunker_GUI
             label20.Text = "Current EQ Band: 3";
             updateTrackbars();
             resetTextboxColors();
-            textBox3.BackColor = System.Drawing.Color.SteelBlue;
-            textBox3.ForeColor = System.Drawing.Color.White;
+            textBox3.BackColor = selectedBackColor;
+            textBox3.ForeColor = selectedForeColor;
         }
 
         private void textBox3_KeyDown(object sender, KeyEventArgs e)
@@ -156,8 +156,8 @@ namespace Bunker_GUI
             label20.Text = "Current EQ Band: 4";
             updateTrackbars();
             resetTextboxColors();
-            textBox4.BackColor = System.Drawing.Color.SteelBlue;
-            textBox4.ForeColor = System.Drawing.Color.White;
+            textBox4.BackColor = selectedBackColor;
+            textBox4.ForeColor = selectedForeColor;
         }
 
         private void textBox4_KeyDown(object sender, KeyEventArgs e)
@@ -199,8 +199,8 @@ namespace Bunker_GUI
             label20.Text = "Current EQ Band: 5";
             updateTrackbars();
             resetTextboxColors();
-            textBox5.BackColor = System.Drawing.Color.SteelBlue;
-            textBox5.ForeColor = System.Drawing.Color.White;
+            textBox5.BackColor = selectedBackColor;
+            textBox5.ForeColor = selectedForeColor;
         }
 
         private void textBox5_KeyDown(object sender, KeyEventArgs e)
@@ -242,8 +242,8 @@ namespace Bunker_GUI
             label20.Text = "Current EQ Band: 6";
             updateTrackbars();
             resetTextboxColors();
-            textBox6.BackColor = System.Drawing.Color.SteelBlue;
-            textBox6.ForeColor = System.Drawing.Color.White;
+            textBox6.BackColor = selectedBackColor;
+            textBox6.ForeColor = selectedForeColor;
         }
 
         private void textBox6_KeyDown(object sender, KeyEventArgs e)
@@ -285,8 +285,8 @@ namespace Bunker_GUI
             label20.Text = "Current EQ Band: 7";
             updateTrackbars();
             resetTextboxColors();
-            textBox7.BackColor = System.Drawing.Color.SteelBlue;
-            textBox7.ForeColor = System.Drawing.Color.White;
+            textBox7.BackColor = selectedBackColor;
+            textBox7.ForeColor = selectedForeColor;
         }
 
         private void textBox7_KeyDown(object sender, KeyEventArgs e)
@@ -328,8 +328,8 @@ namespace Bunker_GUI
             label20.Text = "Current EQ Band: 8";
             updateTrackbars();
             resetTextboxColors();
-            textBox8.BackColor = System.Drawing.Color.SteelBlue;
-            textBox8.ForeColor = System.Drawing.Color.White;
+            textBox8.BackColor = selectedBackColor;
+            textBox8.ForeColor = selectedForeColor;
         }
 
         private void textBox8_KeyDown(object sender, KeyEventArgs e)
@@ -371,8 +371,8 @@ namespace Bunker_GUI
             label20.Text = "Current EQ Band: 9";
             updateTrackbars();
             resetTextboxColors();
-            textBox9.BackColor = System.Drawing.Color.SteelBlue;
-            textBox9.ForeColor = System.Drawing.Color.White;
+            textBox9.BackColor = selectedBackColor;
+            textBox9.ForeColor = selectedForeColor;
         }
 
         private void textBox9_KeyDown(object sender, KeyEventArgs e)
@@ -414,8 +414,8 @@ namespace Bunker_GUI
             label20.Text = "Current EQ Band: 10";
             updateTrackbars();
             resetTextboxColors();
-            textBox10.BackColor = System.Drawing.Color.SteelBlue;
-            textBox10.ForeColor = System.Drawing.Color.White;
+            textBox10.BackColor = selectedBackColor;
+            textBox10.ForeColor = selectedForeColor;
         }
 
         private void textBox10_KeyDown(object sender, KeyEventArgs e)
@@ -457,8 +457,8 @@ namespace Bunker_GUI
             label20.Text = "Current EQ Band: 11";
             updateTrackbars();
             resetTextboxColors();
-            textBox11.BackColor = System.Drawing.Color.SteelBlue;
-            textBox11.ForeColor = System.Drawing.Color.White;
+            textBox11.BackColor = selectedBackColor;
+            textBox11.ForeColor = selectedForeColor;
         }
 
         private void textBox11_KeyDown(object sender, KeyEventArgs e)
@@ -500,8 +500,8 @@ namespace Bunker_GUI
             label20.Text = "Current EQ Band: 12";
             updateTrackbars();
             resetTextboxColors();
-            textBox12.BackColor = System.Drawing.Color.SteelBlue;
-            textBox12.ForeColor = System.Drawing.Color.White;
+            textBox12.BackColor = selectedBackColor;
+            textBox12.ForeColor = selectedForeColor;
         }
 
         private void textBox12_KeyDown(object sender, KeyEventArgs e)
@@ -543,8 +543,8 @@ namespace Bunker_GUI
             label20.Text = "Current EQ Band: 1";
             updateTrackbars();
             resetTextboxColors();
-            textBox13.BackColor = System.Drawing.Color.SteelBlue;
-            textBox13.ForeColor = System.Drawing.Color.White;
+            textBox13.BackColor = selectedBackColor;
+            textBox13.ForeColor = selectedForeColor;
         }
 
         private void textBox13_KeyDown(object sender, KeyEventArgs e)
@@ -586,8 +586,8 @@ namespace Bunker_GUI
             label20.Text = "Current EQ Band: 2";
             updateTrackbars();
             resetTextboxColors();
-            textBox14.BackColor = System.Drawing.Color.SteelBlue;
-            textBox14.ForeColor = System.Drawing.Color.White;
+            textBox14.BackColor = selectedBackColor;
+            textBox14.ForeColor = selectedForeColor;
         }
 
         private void textBox14_KeyDown(object sender, KeyEventArgs e)
@@ -629,8 +629,8 @@ namespace Bunker_GUI
             label20.Text = "Current EQ Band: 3";
             updateTrackbars();
             resetTextboxColors();
-            textBox15.BackColor = System.Drawing.Color.SteelBlue;
-            textBox15.ForeColor = System.Drawing.Color.White;
+            textBox15.BackColor = selectedBackColor;
+            textBox15.ForeColor = selectedForeColor;
         }
 
         private void textBox15_KeyDown(object sender, KeyEventArgs e)
@@ -672,8 +672,8 @@ namespace Bunker_GUI
             label20.Text = "Current EQ Band: 4";
             updateTrackbars();
             resetTextboxColors();
-            textBox16.BackColor = System.Drawing.Color.SteelBlue;
-            textBox16.ForeColor = System.Drawing.Color.White;
+            textBox16.BackColor = selectedBackColor;
+            textBox16.ForeColor = selectedForeColor;
         }
 
         private void textBox16_KeyDown(object sender, KeyEventArgs e)
@@ -715,8 +715,8 @@ namespace Bunker_GUI
             label20.Text = "Current EQ Band: 5";
             updateTrackbars();
             resetTextboxColors();
-            textBox17.BackColor = System.Drawing.Color.SteelBlue;
-            textBox17.ForeColor = System.Drawing.Color.White;
+            textBox17.BackColor = selectedBackColor;
+            textBox17.ForeColor = selectedForeColor;
         }
 
         private void textBox17_KeyDown(object sender, KeyEventArgs e)
@@ -758,8 +758,8 @@ namespace Bunker_GUI
             label20.Text = "Current EQ Band: 6";
             updateTrackbars();
             resetTextboxColors();
-            textBox18.BackColor = System.Drawing.Color.SteelBlue;
-            textBox18.ForeColor = System.Drawing.Color.White;
+            textBox18.BackColor = selectedBackColor;
+            textBox18.ForeColor = selectedForeColor;
         }
 
         private void textBox18_KeyDown(object sender, KeyEventArgs e)
@@ -801,8 +801,8 @@ namespace Bunker_GUI
             label20.Text = "Current EQ Band: 7";
             updateTrackbars();
             resetTextboxColors();
-            textBox19.BackColor = System.Drawing.Color.SteelBlue;
-            textBox19.ForeColor = System.Drawing.Color.White;
+            textBox19.BackColor = selectedBackColor;
+            textBox19.ForeColor = selectedForeColor;
         }
 
         private void textBox19_KeyDown(object sender, KeyEventArgs e)
@@ -844,8 +844,8 @@ namespace Bunker_GUI
             label20.Text = "Current EQ Band: 8";
             updateTrackbars();
             resetTextboxColors();
-            textBox20.BackColor = System.Drawing.Color.SteelBlue;
-            textBox20.ForeColor = System.Drawing.Color.White;
+            textBox20.BackColor = selectedBackColor;
+            textBox20.ForeColor = selectedForeColor;
         }
 
         private void textBox20_KeyDown(object sender, KeyEventArgs e)
@@ -887,8 +887,8 @@ namespace Bunker_GUI
             label20.Text = "Current EQ Band: 9";
             updateTrackbars();
             resetTextboxColors();
-            textBox21.BackColor = System.Drawing.Color.SteelBlue;
-            textBox21.ForeColor = System.Drawing.Color.White;
+            textBox21.BackColor = selectedBackColor;
+            textBox21.ForeColor = selectedForeColor;
         }
 
         private void textBox21_KeyDown(object sender, KeyEventArgs e)
@@ -930,8 +930,8 @@ namespace Bunker_GUI
             label20.Text = "Current EQ Band: 10";
             updateTrackbars();
             resetTextboxColors();
-            textBox22.BackColor = System.Drawing.Color.SteelBlue;
-            textBox22.ForeColor = System.Drawing.Color.White;
+            textBox22.BackColor = selectedBackColor;
+            textBox22.ForeColor = selectedForeColor;
         }
 
         private void textBox22_KeyDown(object sender, KeyEventArgs e)
@@ -973,8 +973,8 @@ namespace Bunker_GUI
             label20.Text = "Current EQ Band: 11";
             updateTrackbars();
             resetTextboxColors();
-            textBox23.BackColor = System.Drawing.Color.SteelBlue;
-            textBox23.ForeColor = System.Drawing.Color.White;
+            textBox23.BackColor = selectedBackColor;
+            textBox23.ForeColor = selectedForeColor;
         }
 
         private void textBox23_KeyDown(object sender, KeyEventArgs e)
@@ -1016,8 +1016,8 @@ namespace Bunker_GUI
             label20.Text = "Current EQ Band: 12";
             updateTrackbars();
             resetTextboxColors();
-            textBox24.BackColor = System.Drawing.Color.SteelBlue;
-            textBox24.ForeColor = System.Drawing.Color.White;
+            textBox24.BackColor = selectedBackColor;
+            textBox24.ForeColor = selectedForeColor;
         }
 
         private void textBox24_KeyDown(object sender, KeyEventArgs e)
@@ -1059,8 +1059,8 @@ namespace Bunker_GUI
             label20.Text = "Current EQ Band: 1";
             updateTrackbars();
             resetTextboxColors();
-            textBox25.BackColor = System.Drawing.Color.SteelBlue;
-            textBox25.ForeColor = System.Drawing.Color.White;
+            textBox25.BackColor = selectedBackColor;
+            textBox25.ForeColor = selectedForeColor;
         }
 
         private void textBox25_KeyDown(object sender, KeyEventArgs e)
@@ -1106,8 +1106,8 @@ namespace Bunker_GUI
             label20.Text = "Current EQ Band: 2";
             updateTrackbars();
             resetTextboxColors();
-            textBox26.BackColor = System.Drawing.Color.SteelBlue;
-            textBox26.ForeColor = System.Drawing.Color.White;
+            textBox26.BackColor = selectedBackColor;
+            textBox26.ForeColor = selectedForeColor;
         }
 
         private void textBox26_KeyDown(object sender, KeyEventArgs e)
@@ -1153,8 +1153,8 @@ namespace Bunker_GUI
             label20.Text = "Current EQ Band: 3";
             updateTrackbars();
             resetTextboxColors();
-            textBox27.BackColor = System.Drawing.Color.SteelBlue;
-            textBox27.ForeColor = System.Drawing.Color.White;
+            textBox27.BackColor = selectedBackColor;
+            textBox27.ForeColor = selectedForeColor;
         }
 
         private void textBox27_KeyDown(object sender, KeyEventArgs e)
@@ -1200,8 +1200,8 @@ namespace Bunker_GUI
             label20.Text = "Current EQ Band: 4";
             updateTrackbars();
             resetTextboxColors();
-            textBox28.BackColor = System.Drawing.Color.SteelBlue;
-            textBox28.ForeColor = System.Drawing.Color.White;
+            textBox28.BackColor = selectedBackColor;
+            textBox28.ForeColor = selectedForeColor;
         }
 
         private void textBox28_KeyDown(object sender, KeyEventArgs e)
@@ -1247,8 +1247,8 @@ namespace Bunker_GUI
             label20.Text = "Current EQ Band: 5";
             updateTrackbars();
             resetTextboxColors();
-            textBox29.BackColor = System.Drawing.Color.SteelBlue;
-            textBox29.ForeColor = System.Drawing.Color.White;
+            textBox29.BackColor = selectedBackColor;
+            textBox29.ForeColor = selectedForeColor;
         }
 
         private void textBox29_KeyDown(object sender, KeyEventArgs e)
@@ -1294,8 +1294,8 @@ namespace Bunker_GUI
             label20.Text = "Current EQ Band: 6";
             updateTrackbars();
             resetTextboxColors();
-            textBox30.BackColor = System.Drawing.Color.SteelBlue;
-            textBox30.ForeColor = System.Drawing.Color.White;
+            textBox30.BackColor = selectedBackColor;
+            textBox30.ForeColor = selectedForeColor;
         }
 
         private void textBox30_KeyDown(object sender, KeyEventArgs e)
@@ -1341,8 +1341,8 @@ namespace Bunker_GUI
             label20.Text = "Current EQ Band: 7";
             updateTrackbars();
             resetTextboxColors();
-            textBox31.BackColor = System.Drawing.Color.SteelBlue;
-            textBox31.ForeColor = System.Drawing.Color.White;
+            textBox31.BackColor = selectedBackColor;
+            textBox31.ForeColor = selectedForeColor;
         }
 
         private void textBox31_KeyDown(object sender, KeyEventArgs e)
@@ -1388,8 +1388,8 @@ namespace Bunker_GUI
             label20.Text = "Current EQ Band: 8";
             updateTrackbars();
             resetTextboxColors();
-            textBox32.BackColor = System.Drawing.Color.SteelBlue;
-            textBox32.ForeColor = System.Drawing.Color.White;
+            textBox32.BackColor = selectedBackColor;
+            textBox32.ForeColor = selectedForeColor;
         }
 
         private void textBox32_KeyDown(object sender, KeyEventArgs e)
@@ -1435,8 +1435,8 @@ namespace Bunker_GUI
             label20.Text = "Current EQ Band: 9";
             updateTrackbars();
             resetTextboxColors();
-            textBox33.BackColor = System.Drawing.Color.SteelBlue;
-            textBox33.ForeColor = System.Drawing.Color.White;
+            textBox33.BackColor = selectedBackColor;
+            textBox33.ForeColor = selectedForeColor;
         }
 
         private void textBox33_KeyDown(object sender, KeyEventArgs e)
@@ -1482,8 +1482,8 @@ namespace Bunker_GUI
             label20.Text = "Current EQ Band: 10";
             updateTrackbars();
             resetTextboxColors();
-            textBox34.BackColor = System.Drawing.Color.SteelBlue;
-            textBox34.ForeColor = System.Drawing.Color.White;
+            textBox34.BackColor = selectedBackColor;
+            textBox34.ForeColor = selectedForeColor;
         }
 
         private void textBox34_KeyDown(object sender, KeyEventArgs e)
@@ -1529,8 +1529,8 @@ namespace Bunker_GUI
             label20.Text = "Current EQ Band: 11";
             updateTrackbars();
             resetTextboxColors();
-            textBox35.BackColor = System.Drawing.Color.SteelBlue;
-            textBox35.ForeColor = System.Drawing.Color.White;
+            textBox35.BackColor = selectedBackColor;
+            textBox35.ForeColor = selectedForeColor;
         }
 
         private void textBox35_KeyDown(object sender, KeyEventArgs e)
@@ -1576,8 +1576,8 @@ namespace Bunker_GUI
             label20.Text = "Current EQ Band: 12";
             updateTrackbars();
             resetTextboxColors();
-            textBox36.BackColor = System.Drawing.Color.SteelBlue;
-            textBox36.ForeColor = System.Drawing.Color.White;
+            textBox36.BackColor = selectedBackColor;
+            textBox36.ForeColor = selectedForeColor;
         }
 
         private void textBox36_KeyDown(object sender, KeyEventArgs e)
@@ -1620,8 +1620,8 @@ namespace Bunker_GUI
         private void textBox38_Click(object sender, EventArgs e)
         {
             resetTextboxColors();
-            textBox38.BackColor = System.Drawing.Color.SteelBlue;
-            textBox38.ForeColor = System.Drawing.Color.White;
+            textBox38.BackColor = selectedBackColor;
+            textBox38.ForeColor = selectedForeColor;
         }
 
         private void textBox38_KeyDown(object sender, KeyEventArgs e)
@@ -1664,8 +1664,8 @@ namespace Bunker_GUI
         private void textBox39_Click(object sender, EventArgs e)
         {
             resetTextboxColors();
-            textBox39.BackColor = System.Drawing.Color.SteelBlue;
-            textBox39.ForeColor = System.Drawing.Color.White;
+            textBox39.BackColor = selectedBackColor;
+            textBox39.ForeColor = selectedForeColor;
         }
 
         private void textBox39_KeyDown(object sender, KeyEventArgs e)
@@ -1720,16 +1720,16 @@ namespace Bunker_GUI
         private void textBox40_Click(object sender, EventArgs e)
         {
             resetTextboxColors();
-            textBox40.BackColor = System.Drawing.Color.SteelBlue;
-            textBox40.ForeColor = System.Drawing.Color.White;
+            textBox40.BackColor = selectedBackColor;
+            textBox40.ForeColor = selectedForeColor;
         }
 
         //TEXTBOX 42
         private void textBox42_Click(object sender, EventArgs e)
         {
             resetTextboxColors();
-            textBox42.BackColor = System.Drawing.Color.SteelBlue;
-            textBox42.ForeColor = System.Drawing.Color.White;
+            textBox42.BackColor = selectedBackColor;
+            textBox42.ForeColor = selectedForeColor;
         }
     }
 }

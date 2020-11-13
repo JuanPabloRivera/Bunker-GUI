@@ -21,23 +21,23 @@ namespace Bunker_GUI
         private void button1_Click(object sender, EventArgs e)
         {
             updateProgram(1, 1);
-            button1.BackColor = System.Drawing.Color.SteelBlue;
-            button1.ForeColor = System.Drawing.Color.White;
+            button1.BackColor = selectedBackColor;
+            button1.ForeColor = selectedForeColor;
 
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             updateProgram(1, 2);
-            button2.BackColor = System.Drawing.Color.SteelBlue;
-            button2.ForeColor = System.Drawing.Color.White;
+            button2.BackColor = selectedBackColor;
+            button2.ForeColor = selectedForeColor;
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
             updateProgram(1, 3);
-            button3.BackColor = System.Drawing.Color.SteelBlue;
-            button3.ForeColor = System.Drawing.Color.White;
+            button3.BackColor = selectedBackColor;
+            button3.ForeColor = selectedForeColor;
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -45,14 +45,14 @@ namespace Bunker_GUI
             if (Convert.ToBoolean(phase))
             {
                 button5.Text = "Phase-";
-                button5.BackColor = System.Drawing.Color.SteelBlue;
-                button5.ForeColor = System.Drawing.Color.White;
+                button5.BackColor = selectedBackColor;
+                button5.ForeColor = selectedForeColor;
             }
             else
             {
                 button5.Text = "Phase+";
-                button5.BackColor = System.Drawing.Color.White;
-                button5.ForeColor = System.Drawing.Color.Black;
+                button5.BackColor = backColor;
+                button5.ForeColor = foreColor;
             }
             phase ^= 1;
         }

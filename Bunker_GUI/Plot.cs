@@ -139,7 +139,7 @@ namespace Bunker_GUI
                 LabelFormatter = value => Math.Pow(10, value).ToString("N"),
                 Separator = new Separator
                 {
-                    Stroke = System.Windows.Media.Brushes.LightGray,
+                    Stroke = separatorColor,
                     StrokeThickness = 0.5
                 }
             };
@@ -150,7 +150,7 @@ namespace Bunker_GUI
                 MaxValue = 15,
                 Separator = new Separator
                 {
-                    Stroke = System.Windows.Media.Brushes.LightGray,
+                    Stroke = separatorColor,
                     StrokeThickness = 0.5
                 }
             };

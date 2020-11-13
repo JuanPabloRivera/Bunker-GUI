@@ -202,5 +202,10 @@ namespace Bunker_GUI
             }
             else this.Close();
         }
+
+        private void appearanceToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            displayCustom();
+        }
     }
 }
